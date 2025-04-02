@@ -14,7 +14,7 @@ public class railgun : gun
         recoilAngle = 10f;
         recoilSpeed = 50f;
         resetSpeed = 5f;
-        recoilDistance = 1f;
+        recoilDistance = 1.5f;
         originalRotation = transform.localRotation;
         laser.enabled = false;
     }
@@ -46,7 +46,7 @@ public class railgun : gun
         laser.SetPosition(0, muzzle.position);
 
         // Get the direction from crosshair
-        Ray ray = cameraObject.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Ray ray = new Ray(cameraObject.transform.position, cameraObject.transform.forward);
         RaycastHit[] hits = Physics.RaycastAll(ray, maxDistance, hitLayers);
 
         System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
@@ -70,27 +70,5 @@ public class railgun : gun
         laser.SetPosition(1, laserEndPoint);
         yield return new WaitForSeconds(laserDuration);
         laser.enabled = false;
-    }
-    IEnumerator Recoil()
-    {
-        // Tilt the weapon back
-        float elapsedTime = 0;
-
-        while (elapsedTime < (1f / recoilSpeed))
-        {
-            transform.RotateAround(cameraObject.transform.position, cameraObject.transform.right, -recoilAngle * Time.deltaTime * recoilSpeed);
-            transform.position -= cameraObject.transform.forward * (recoilDistance * Time.deltaTime * recoilSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        elapsedTime = 0;
-        while (elapsedTime < (1f / resetSpeed))
-        {
-            transform.RotateAround(cameraObject.transform.position, cameraObject.transform.right, recoilAngle * Time.deltaTime * resetSpeed);
-            transform.position += cameraObject.transform.forward * (recoilDistance * Time.deltaTime * resetSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
     }
 }

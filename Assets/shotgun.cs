@@ -49,28 +49,5 @@ public class shotgun : gun
     {
         transform.localRotation = originalRotation;
     }
-
-    IEnumerator Recoil()
-    {
-        // Tilt the weapon back
-        float elapsedTime = 0;
-
-        while (elapsedTime < (1f / recoilSpeed))
-        {
-            transform.RotateAround(cameraObject.transform.position, cameraObject.transform.right, -recoilAngle * Time.deltaTime * recoilSpeed);
-            transform.position -= cameraObject.transform.forward * (recoilDistance * Time.deltaTime * recoilSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        elapsedTime = 0;
-        while (elapsedTime < (1f / resetSpeed))
-        {
-            transform.RotateAround(cameraObject.transform.position, cameraObject.transform.right, recoilAngle * Time.deltaTime * resetSpeed);
-            transform.position += cameraObject.transform.forward * (recoilDistance * Time.deltaTime * resetSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
 }
 

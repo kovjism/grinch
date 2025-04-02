@@ -28,7 +28,7 @@ public class pistol : gun
         
         nextFire = Time.time + fireRate;
         RaycastHit hit;
-        Ray ray = cameraObject.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        Ray ray = new Ray(cameraObject.transform.position, cameraObject.transform.forward);
 
         Vector3 targetPoint = ray.origin + ray.direction * maxDistance;
         GameObject bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
@@ -47,28 +47,5 @@ public class pistol : gun
     public override void Equip()
     {
         transform.localRotation = originalRotation;
-    }
-
-    IEnumerator Recoil()
-    {
-        // Tilt the weapon back
-        float elapsedTime = 0;
-
-        while (elapsedTime < (1f / recoilSpeed))
-        {
-            transform.RotateAround(cameraObject.transform.position, cameraObject.transform.right, -recoilAngle * Time.deltaTime * recoilSpeed);
-            transform.position -= cameraObject.transform.forward * (recoilDistance * Time.deltaTime * recoilSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        elapsedTime = 0;
-        while (elapsedTime < (1f / resetSpeed))
-        {
-            transform.RotateAround(cameraObject.transform.position, cameraObject.transform.right, recoilAngle * Time.deltaTime * resetSpeed);
-            transform.position += cameraObject.transform.forward * (recoilDistance * Time.deltaTime * resetSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
     }
 }
