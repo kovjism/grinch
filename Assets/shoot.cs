@@ -27,7 +27,7 @@ public class shoot : MonoBehaviour
         {
             guns[currentGun].Shoot();   
         }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetButtonDown("js10"))
         {
             currentGun = (currentGun + 1) % guns.Count;
             guns[currentGun].Equip();
