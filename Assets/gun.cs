@@ -40,17 +40,17 @@ public abstract class gun : MonoBehaviour
         Vector3 startPos = transform.localPosition;
         Quaternion startRot = transform.localRotation;
 
-        Vector3 recoilDirection = transform.forward; // Cache the forward vector before rotation!
-
         float elapsedTime = 0f;
         float recoilDuration = 1f / recoilSpeed;
 
-        // Recoil back
+        // Get recoil direction in local space
+        Vector3 localRecoilDir = transform.InverseTransformDirection(cameraObject.transform.forward);
+
         while (elapsedTime < recoilDuration)
         {
             float step = Time.deltaTime * recoilSpeed;
-            transform.Rotate(Vector3.right, -recoilAngle * step, Space.Self);
-            transform.localPosition -= recoilDirection * recoilDistance * step;
+            transform.localRotation *= Quaternion.Euler(-recoilAngle * step, 0f, 0f);
+            transform.localPosition -= localRecoilDir * recoilDistance * step;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -58,17 +58,15 @@ public abstract class gun : MonoBehaviour
         elapsedTime = 0f;
         float resetDuration = 1f / resetSpeed;
 
-        // Reset forward
         while (elapsedTime < resetDuration)
         {
-            float step = Time.deltaTime * resetSpeed;
-            transform.Rotate(Vector3.right, recoilAngle * step, Space.Self);
-            transform.localPosition += recoilDirection * recoilDistance * step;
+            float t = elapsedTime / resetDuration;
+            transform.localPosition = Vector3.Lerp(transform.localPosition, startPos, t);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, startRot, t);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Snap back to exact original just to clean up float errors
         transform.localPosition = startPos;
         transform.localRotation = startRot;
     }
