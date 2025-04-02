@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class pistol : gun
 {
-    private bool recoiling = false;
-    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,8 +51,6 @@ public class pistol : gun
 
     IEnumerator Recoil()
     {
-        recoiling = true;
-
         // Tilt the weapon back
         float elapsedTime = 0;
 
@@ -74,7 +70,5 @@ public class pistol : gun
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        recoiling = false;
     }
 }

@@ -5,7 +5,6 @@ public class shotgun : gun
 {
     private int shots = 8;
     private float spread = 5f;
-    private bool recoiling = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,8 +52,6 @@ public class shotgun : gun
 
     IEnumerator Recoil()
     {
-        recoiling = true;
-
         // Tilt the weapon back
         float elapsedTime = 0;
 
@@ -74,8 +71,6 @@ public class shotgun : gun
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        recoiling = false;
     }
 }
 

@@ -5,7 +5,6 @@ public class railgun : gun
 {
     public LineRenderer laser;
     public float laserDuration = 0.1f;
-    private bool recoiling = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -74,8 +73,6 @@ public class railgun : gun
     }
     IEnumerator Recoil()
     {
-        recoiling = true;
-
         // Tilt the weapon back
         float elapsedTime = 0;
 
@@ -95,7 +92,5 @@ public class railgun : gun
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        recoiling = false;
     }
 }

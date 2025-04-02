@@ -23,7 +23,7 @@ public class shoot : MonoBehaviour
     {
         float fillAmount = Mathf.Clamp01(1 - ((guns[currentGun].nextFire - Time.time) / guns[currentGun].fireRate));
         ammoBar.value = fillAmount;
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js0"))
         {
             guns[currentGun].Shoot();   
         }
