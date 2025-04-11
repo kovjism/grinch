@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class enemy : MonoBehaviour
 {
     public int health = 3;
-
+    [SerializeField] private AudioClip damageSoundClip;
     private NavMeshAgent agent;
     private Transform player;
 
@@ -24,9 +24,13 @@ public class enemy : MonoBehaviour
     
     public void takeDamage(int damage)
     {
+        //play ouch sound
+        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+
         health -= damage;
         if (health <= 0)
         {
+            //play death sound?
             Destroy(gameObject);
         }
 

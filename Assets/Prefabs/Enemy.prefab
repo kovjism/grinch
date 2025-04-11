@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  damageSoundClip: {fileID: 8300000, guid: 42612f5c9556cbe4e94b356ecc572917, type: 3}
 --- !u!195 &3009447970180294298
 NavMeshAgent:
   m_ObjectHideFlags: 0
