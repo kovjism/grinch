@@ -13,7 +13,7 @@ public class start : MonoBehaviour
     {
         Canvas settings = GameObject.Find("Menu").GetComponent<Canvas>();
         settings.enabled = false;
-        Canvas options = GameObject.Find("Options").GetComponent<Canvas>();
+        Canvas options = GameObject.Find("Options Menu").GetComponent<Canvas>();
         options.enabled = true;
     }
 
