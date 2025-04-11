@@ -24,6 +24,7 @@ public class DoorController : MonoBehaviour
     public float speed = 2f;
     private Quaternion closedRotation;
     private Quaternion openRotation;
+    [SerializeField] private AudioClip doorSoundClip;
 
     void Start()
     {
@@ -41,6 +42,7 @@ public class DoorController : MonoBehaviour
 
     public void ToggleDoor()
     {
+        SoundFXManager.instance.PlaySoundFXClip(doorSoundClip, transform, 0.2f);
         isOpen = !isOpen;
     }
 }
