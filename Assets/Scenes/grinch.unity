@@ -757,6 +757,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 1340683686}
   guns: {fileID: 762867648}
+  reticle: {fileID: 1142276465}
+  crosshair: {fileID: 244482545}
   distance: 50
   rayOrigin: {x: 0, y: 0, z: 0}
   rayDirection: {x: 0, y: 0, z: 0}
@@ -1687,6 +1689,11 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1142276465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7287137019806045177, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
+  m_PrefabInstance: {fileID: 1597666476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1155152214
 GameObject:
   m_ObjectHideFlags: 0

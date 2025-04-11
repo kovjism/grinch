@@ -8,6 +8,9 @@ public class pointer : MonoBehaviour
 {
     public Canvas menu;                 // settings menu
     public GameObject guns;
+    public GameObject reticle;
+    public GameObject crosshair;
+
     public float distance;              // length of raycast
     public Vector3 rayOrigin;           // start of raycast (for grabbing)
     public Vector3 rayDirection;        // raycast direction (for grabbing)
@@ -42,12 +45,16 @@ public class pointer : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 guns.SetActive(false);
+                reticle.SetActive(false);
+                crosshair.SetActive(false);
             }
         } else
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 guns.SetActive(true);
+                reticle.SetActive(true);
+                crosshair.SetActive(true);
             }
 
             lr.enabled = true;                                                                  // show line
