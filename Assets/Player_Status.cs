@@ -27,14 +27,14 @@ public class Player_Status : MonoBehaviour
         }
         else if (currentRage == 1)
         {
-            rageModeText.text = "Rage Mode Charging...";
+            rageModeText.text = "Rage Mode Charging...\n(Tilt Left to Continue)";
             grinchCanvas.SetActive(true);
             Invoke("hideGrinchCanvas", 2);
             rageStatus++;
         }
         else if (currentRage == 2)
         {
-            rageModeText.text = "Rage Mode Charging...";
+            rageModeText.text = "Rage Mode Charging...\n(Tilt Up to Activate)";
             grinchCanvas.SetActive(true);
             Invoke("hideGrinchCanvas", 2);
             rageStatus++;
