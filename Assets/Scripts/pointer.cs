@@ -90,6 +90,18 @@ public class pointer : MonoBehaviour
                     }
                 }
 
+                // --- Lamp interaction ---
+                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.L)) // Or same key as door
+                {
+                    Transform hitTransform = hit.collider.transform;
+                    LampToggle lamp = hitTransform.GetComponentInParent<LampToggle>();
+                    if (lamp != null)
+                    {
+                        lamp.ToggleLamp();
+                    }
+                }
+
+
                 Outline outline = hit.collider.GetComponent<Outline>();         // get outline component
 
                 if (lastObject != null && outline != lastObject)                // if new object is hovered, remove old outline
