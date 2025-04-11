@@ -19,6 +19,11 @@ public class pointer : MonoBehaviour
     private Outline lastObject;         // last object outlined
     private GameObject lastHoveredUI;   // last button hovered
 
+    private GameObject heldObject = null;
+    private Transform grabAnchor; // an empty child of camera for holding objects
+    private float grabDistance = 2f;
+
+
     private Vector3 offset = new Vector3(0f, -0.1f, 0f);    // offset to move pointer starting point below camera
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,6 +35,10 @@ public class pointer : MonoBehaviour
         lr.startWidth = 0.01f;                  // set starting width
         lr.endWidth = 0.05f;                    // set ending width
         lr.enabled = true;                      // show line
+
+        grabAnchor = new GameObject("GrabAnchor").transform;
+        grabAnchor.SetParent(transform); // attach to pointer (camera probably)
+        grabAnchor.localPosition = new Vector3(0f, 0f, 6f); // position 2m in front
     }
 
     // Update is called once per frame
@@ -91,6 +100,32 @@ public class pointer : MonoBehaviour
                 {
                     outline.enabled = true;
                     lastObject = outline;
+                }
+
+                // === Grabbing Logic ===
+                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.G))
+                {
+                    if (heldObject == null)
+                    {
+                        // Try to grab object
+                        if (hit.collider.CompareTag("Grabbable")) // or use layer check
+                        {
+                            heldObject = hit.collider.gameObject;
+                            heldObject.transform.SetParent(grabAnchor);
+                            heldObject.transform.localPosition = Vector3.zero;
+                            heldObject.GetComponent<Rigidbody>().isKinematic = true;
+                        }
+                    }
+                    else
+                    {
+                        // Release object
+                        heldObject.transform.SetParent(null);
+                        Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+                        if (rb != null)
+                            rb.isKinematic = false;
+
+                        heldObject = null;
+                    }
                 }
             }
             else
