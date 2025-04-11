@@ -71,6 +71,12 @@ public class UIContrastManager : MonoBehaviour
         var texts = FindObjectsByType<TMP_Text>(FindObjectsSortMode.None);
         foreach (var txt in texts)
             txt.color = textColor;
+
+        var outlines = FindObjectsByType<Outline>(FindObjectsSortMode.None);
+        foreach (var outline in outlines)
+        {
+            outline.OutlineColor = uiColor;
+        }
     }
 
     void SetSelectableColors(Selectable selectable, Color color)
