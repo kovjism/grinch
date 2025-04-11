@@ -1607,7 +1607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8f23c7538e8ef48a42d9dfeb752558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grinchCanvas: {fileID: 0}
+  grinchCanvas: {fileID: 2083519556}
 --- !u!1 &921201179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,6 +2138,7 @@ MonoBehaviour:
   isOpen: 0
   openAngle: 90
   speed: 2
+  doorSoundClip: {fileID: 8300000, guid: 482b9ce436b0c2b488bd31eb13bb313e, type: 3}
 --- !u!4 &1180474390
 Transform:
   m_ObjectHideFlags: 0
@@ -3531,6 +3532,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2083519556 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8892767245852490195, guid: a2434e1758ad71342b76aaa84e722307, type: 3}
+  m_PrefabInstance: {fileID: 7923474687126765386}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7781878185801372831
 PrefabInstance:
   m_ObjectHideFlags: 0
