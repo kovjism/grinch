@@ -5,6 +5,7 @@ public class railgun : gun
 {
     public LineRenderer laser;
     public float laserDuration = 0.1f;
+    [SerializeField] private AudioClip firingSoundClip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +31,9 @@ public class railgun : gun
         if (Time.time < nextFire) return;
 
         nextFire = Time.time + fireRate;
+
+        //play firing sound
+        SoundFXManager.instance.PlaySoundFXClip(firingSoundClip, transform, 1f);
 
         StartCoroutine(Laser());
         StartCoroutine(Recoil());

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class pistol : gun
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private AudioClip firingSoundClip;
     void Start()
     {
         fireRate = 0.5f;
@@ -25,7 +26,10 @@ public class pistol : gun
     public override void Shoot()
     {
         if (Time.time < nextFire) return;
-        
+
+        //play firing sound
+        SoundFXManager.instance.PlaySoundFXClip(firingSoundClip, transform, 1f);
+
         nextFire = Time.time + fireRate;
         RaycastHit hit;
         Ray ray = new Ray(cameraObject.transform.position, cameraObject.transform.forward);

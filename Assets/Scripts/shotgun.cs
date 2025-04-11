@@ -5,6 +5,7 @@ public class shotgun : gun
 {
     private int shots = 8;
     private float spread = 5f;
+    [SerializeField] private AudioClip firingSoundClip;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +29,9 @@ public class shotgun : gun
         if (Time.time < nextFire) return;
 
         nextFire = Time.time + fireRate;
+
+        //play firing sound
+        SoundFXManager.instance.PlaySoundFXClip(firingSoundClip, transform, 1f);
 
         for (int i = 0; i < shots; i++)
         {

@@ -1244,6 +1244,7 @@ MonoBehaviour:
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   laser: {fileID: 921201185}
   laserDuration: 0.03
+  firingSoundClip: {fileID: 8300000, guid: 4deb971fd93d31349b811f4b5b13dd46, type: 3}
 --- !u!65 &921201182
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1525,6 +1526,7 @@ MonoBehaviour:
   resetSpeed: 0
   recoilDistance: 0
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
+  firingSoundClip: {fileID: 8300000, guid: fa3e110f7f6d7074983b5db2baace5d8, type: 3}
 --- !u!65 &1155152217
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2198,6 +2200,7 @@ MonoBehaviour:
   resetSpeed: 0
   recoilDistance: 0
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
+  firingSoundClip: {fileID: 8300000, guid: 85e96a2b044baaf40b97a8d61be53fad, type: 3}
 --- !u!1 &2030559449
 GameObject:
   m_ObjectHideFlags: 0

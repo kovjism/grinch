@@ -25,7 +25,7 @@ public class enemy : MonoBehaviour
     public void takeDamage(int damage)
     {
         //play ouch sound
-        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
+        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 0.2f);
 
         health -= damage;
         if (health <= 0)
