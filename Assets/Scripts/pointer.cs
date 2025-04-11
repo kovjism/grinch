@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,6 +23,9 @@ public class pointer : MonoBehaviour
     private GameObject heldObject = null;
     private Transform grabAnchor; // an empty child of camera for holding objects
     private float grabDistance = 2f;
+
+    private GameObject throwableObject = null;
+    public float throwStrength = 10000f;
 
 
     private Vector3 offset = new Vector3(0f, -0.1f, 0f);    // offset to move pointer starting point below camera
@@ -100,6 +104,37 @@ public class pointer : MonoBehaviour
                         lamp.ToggleLamp();
                     }
                 }
+
+                // --- Throwable object pickup ---
+                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.T)) // T to pick up/throw
+                {
+                    Transform hitTransform = hit.collider.transform;
+
+                    if (hitTransform.CompareTag("Throwable"))
+                    {
+                        if (throwableObject == null)
+                        {
+                            // Pick up (attach to camera or hand)
+                            throwableObject = hitTransform.gameObject;
+                            Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
+                            rb.isKinematic = true;
+                            throwableObject.transform.SetParent(transform); // Attach to pointer/camera
+                            throwableObject.transform.localPosition = new Vector3(0, 0, 3); // Position in front of player
+                        }
+                        else
+                        {
+                            // Throw
+                            throwableObject.transform.SetParent(null);
+                            Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
+                            rb.isKinematic = false;
+                            //rb.AddForce(transform.forward * throwStrength, ForceMode.VelocityChange);
+                            rb.AddForce(transform.forward * throwStrength, ForceMode.Impulse);
+                            rb.linearVelocity = transform.forward * throwStrength;
+                            throwableObject = null;
+                        }
+                    }
+                }
+
 
 
                 Outline outline = hit.collider.GetComponent<Outline>();         // get outline component
@@ -203,4 +238,5 @@ public class pointer : MonoBehaviour
             //
         }
     }
+
 }

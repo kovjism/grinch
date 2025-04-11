@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Grabbable
   - Lamp
+  - Throwable
   layers:
   - Default
   - TransparentFX
