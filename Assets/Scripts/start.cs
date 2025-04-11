@@ -1,12 +1,9 @@
 using Palmmedia.ReportGenerator.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
 
 public class start : MonoBehaviour
 {
-    public GameObject OptionsFirst;
-
     public void StartGame()
     {
         SceneManager.LoadScene("grinch");
@@ -18,9 +15,7 @@ public class start : MonoBehaviour
         settings.enabled = false;
         Canvas options = GameObject.Find("Options Menu").GetComponent<Canvas>();
         options.enabled = true;
-        EventSystem.current.SetSelectedGameObject(null);            
-        EventSystem.current.SetSelectedGameObject(OptionsFirst);     
-    }   
+    }
 
     public void QuitGame()
     {
