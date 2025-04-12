@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,6 +28,7 @@ public class pointer : MonoBehaviour
     private GameObject throwableObject = null;
     public float throwStrength = 10000f;
 
+    private shoot shootScript;
 
     private Vector3 offset = new Vector3(0f, -0.1f, 0f);    // offset to move pointer starting point below camera
 
@@ -43,6 +45,13 @@ public class pointer : MonoBehaviour
         grabAnchor = new GameObject("GrabAnchor").transform;
         grabAnchor.SetParent(transform); // attach to pointer (camera probably)
         grabAnchor.localPosition = new Vector3(0f, 0f, 6f); // position 2m in front
+
+        // Get reference to the shoot script on the guns GameObject
+        shootScript = guns.GetComponent<shoot>();
+        if (shootScript == null)
+        {
+            Debug.LogError("No shoot script found on guns GameObject!");
+        }
     }
 
     // Update is called once per frame
@@ -135,6 +144,23 @@ public class pointer : MonoBehaviour
                     }
                 }
 
+                // --- Gun pickup interaction ---
+                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.E)) // E to pick up gun
+                {
+                    Transform hitTransform = hit.collider.transform;
+                    GunPickup gunPickup = hitTransform.GetComponent<GunPickup>();
+
+                    if (gunPickup != null && gunPickup.canBePickedUp)
+                    {
+                        // Call the method on shoot script to add the gun
+                        if (shootScript.AddGun(gunPickup.gunPrefab))
+                        {
+                            // Destroy the pickup object after successful pickup
+                            Destroy(hitTransform.gameObject);
+                            Debug.Log("Picked up " + gunPickup.gunType);
+                        }
+                    }
+                }
 
 
                 Outline outline = hit.collider.GetComponent<Outline>();         // get outline component

@@ -9,6 +9,7 @@ TagManager:
   - Grabbable
   - Lamp
   - Throwable
+  - PickupGun
   layers:
   - Default
   - TransparentFX
