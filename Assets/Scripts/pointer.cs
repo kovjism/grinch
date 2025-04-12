@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class pointer : MonoBehaviour
 {
-    public Canvas menu;                 // settings menu
+    public GameObject menu;                 // settings menu
     public GameObject guns;
     public GameObject reticle;
     public GameObject crosshair;
@@ -23,7 +23,6 @@ public class pointer : MonoBehaviour
 
     private GameObject heldObject = null;
     private Transform grabAnchor; // an empty child of camera for holding objects
-    private float grabDistance = 2f;
 
     private GameObject throwableObject = null;
     public float throwStrength = 10000f;
@@ -57,7 +56,7 @@ public class pointer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (menu.isActiveAndEnabled || guns.activeSelf)        // if settings or inventory open, do not show pointer
+        if (menu.GetComponent<menus>().open || guns.activeSelf)        // if settings or inventory open, do not show pointer
         {
             lr.enabled = false;                                             // hide line
             if (lastObject != null)                                         // if there is a last object outlined
