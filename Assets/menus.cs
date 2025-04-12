@@ -34,6 +34,10 @@ public class menus : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(firstButton);
         }
     }
+    public void CloseMenu()
+    {
+        open = false;
+    }
 
     public void QuitToMenu()
     {
