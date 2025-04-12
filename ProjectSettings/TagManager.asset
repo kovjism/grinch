@@ -10,6 +10,7 @@ TagManager:
   - Lamp
   - Throwable
   - PickupGun
+  - Present
   layers:
   - Default
   - TransparentFX

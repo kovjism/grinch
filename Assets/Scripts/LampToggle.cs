@@ -21,7 +21,7 @@ public class LampToggle : MonoBehaviour
 {
     public Light lampLight; // Assign this in the Inspector
 
-    private bool isOn = true;
+    private bool isOn = false;
 
     void Start()
     {

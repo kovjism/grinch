@@ -12,6 +12,7 @@ public class pointer : MonoBehaviour
     public GameObject guns;
     public GameObject reticle;
     public GameObject crosshair;
+    public GameObject gunPickupPrefab; // presents pickup
 
     public float distance;              // length of raycast
     public Vector3 rayOrigin;           // start of raycast (for grabbing)
@@ -147,6 +148,12 @@ public class pointer : MonoBehaviour
                 if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.E)) // E to pick up gun
                 {
                     Transform hitTransform = hit.collider.transform;
+                    PresentOpener present = hitTransform.GetComponent<PresentOpener>();
+                    if (present != null)
+                    {
+                        present.Open();
+                        return;
+                    }
                     GunPickup gunPickup = hitTransform.GetComponent<GunPickup>();
 
                     if (gunPickup != null && gunPickup.canBePickedUp)
