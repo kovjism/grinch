@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundFXManager : MonoBehaviour
 {
     public static SoundFXManager instance;
-    private float minSoundInterval = 1.0f;
+    private float minSoundInterval = 0.5f;
     [SerializeField] private AudioSource soundFXObject;
     private AudioSource[] audioSources = new AudioSource[32];
     private void Awake()

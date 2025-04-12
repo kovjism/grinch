@@ -8,7 +8,7 @@ public class Player_Status : MonoBehaviour
     private int rageStatus;
     void Start()
     {
-        Input.gyro.enabled = true;
+        //Input.gyro.enabled = true;
         rageModeText = grinchCanvas.GetComponentInChildren<TextMeshProUGUI>();
         rageStatus = 0;
     }

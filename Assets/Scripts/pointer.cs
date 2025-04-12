@@ -186,12 +186,14 @@ public class pointer : MonoBehaviour
                             heldObject.transform.SetParent(grabAnchor);
                             heldObject.transform.localPosition = Vector3.zero;
                             heldObject.GetComponent<Rigidbody>().isKinematic = true;
+                            GyroManager.Instance.enableFollowGyro(heldObject);
                         }
                     }
                     else
                     {
                         // Release object
                         heldObject.transform.SetParent(null);
+                        GyroManager.Instance.disableFollowGyro(heldObject);
                         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
                         if (rb != null)
                             rb.isKinematic = false;
