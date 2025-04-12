@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthbarSprite: {fileID: 837349396226768322}
+  reduceSpeed: 3
 --- !u!1 &6593013607383138236
 GameObject:
   m_ObjectHideFlags: 0
