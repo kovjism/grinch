@@ -9076,11 +9076,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 484808, guid: 7aa590554913aca418e77f31a3d07ee5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.048
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 484808, guid: 7aa590554913aca418e77f31a3d07ee5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.809
+      value: 16.63
       objectReference: {fileID: 0}
     - target: {fileID: 484808, guid: 7aa590554913aca418e77f31a3d07ee5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10502,6 +10502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunPickupPrefab: {fileID: 6683618477548514244, guid: 0c54a577e6af24242a9d29bcd1201ec8, type: 3}
+  giftSoundClip: {fileID: 8300000, guid: c78339631561949c4a9b0abb68bf8720, type: 3}
 --- !u!114 &1965927153
 MonoBehaviour:
   m_ObjectHideFlags: 0
