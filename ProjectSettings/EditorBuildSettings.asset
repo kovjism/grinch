@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/grinch.unity
     guid: 9f10ef7aa7d6e6d458ec8a6f3f4ec538
+  - enabled: 1
+    path: Assets/Scenes/startingMenu.unity
+    guid: 3fc98a5239353f54788616d0b0d63e07
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 763fd30a14c7d814390d4c84f9709ab4, type: 2}
