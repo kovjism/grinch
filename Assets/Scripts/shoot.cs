@@ -11,24 +11,34 @@ public class shoot : MonoBehaviour
 
     // private variables
     private int currentGun = 0;
+    private Gyroscope gyro;
+    Vector3 rotationRate;
+    private bool canConfirm = true;
+    private float nodCooldown = 1f;
+    private float lastNodTime = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GyroManager.Instance.enableGyro();
+        gyro = Input.gyro;
         UpdateWeaponVisibility();
     }
 
     // Update is called once per frame
     void Update()
     {
+        rotationRate = gyro.rotationRate;
         float fillAmount = Mathf.Clamp01(1 - ((guns[currentGun].nextFire - Time.time) / guns[currentGun].fireRate));
         ammoBar.value = fillAmount;
         if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js5"))
         {
             guns[currentGun].Shoot();   
         }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetButtonDown("js7"))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetButtonDown("js7") || (rotationRate.x < -0.8f && canConfirm))
         {
+            canConfirm = false;
+            lastNodTime = Time.time;
             currentGun = (currentGun + 1) % guns.Count;
             guns[currentGun].Equip();
             UpdateWeaponVisibility();
@@ -38,6 +48,10 @@ public class shoot : MonoBehaviour
             currentGun = (currentGun - 1 + guns.Count) % guns.Count;
             guns[currentGun].Equip();
             UpdateWeaponVisibility();
+        }
+        if (!canConfirm && Time.time - lastNodTime > nodCooldown)
+        {
+            canConfirm = true;
         }
     }
     void UpdateWeaponVisibility()
