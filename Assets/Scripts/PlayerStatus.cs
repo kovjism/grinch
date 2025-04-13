@@ -29,52 +29,57 @@ public class Player_Status : MonoBehaviour
     private void CheckForRage(int currentRage)
     {
         //check for right tilt phone movement
-        if (currentRage == 0 && canShowRageMessage)
+        if (currentRage == 0)
         {
+            rageModeText.text = "Rage Mode is Ready!\n(Tilt Right to Start)";
+            grinchCanvas.SetActive(true);
+            //Invoke("HideGrinchCanvas", 2);
+
             if (rotationRate.y > 0.5f)
             {
                 rageStatus++;
                 return;
             }
-            rageModeText.text = "Rage Mode is Ready!\n(Tilt Right to Start)";
-            grinchCanvas.SetActive(true);
-            Invoke("HideGrinchCanvas", 2);
-
-            //add cooldown
-            canShowRageMessage = false;
-            Invoke("ResetRageMessage", 5f);
+            //if (canShowRageMessage)
+            //{
+            //    //add cooldown
+            //    canShowRageMessage = false;
+            //    Invoke("ResetRageMessage", 5f);
+            //}
         }
         //check for left tilt phone movement
         else if (currentRage == 1)
         {
+            rageModeText.text = "Rage Mode Started...\n(Tilt Left to Continue)";
+            grinchCanvas.SetActive(true);
+            //Invoke("HideGrinchCanvas", 2);
+
             if (rotationRate.y < -0.5f)
             {
                 rageStatus++;
                 return;
             }
-            rageModeText.text = "Rage Mode Started...\n(Tilt Left to Continue)";
-            grinchCanvas.SetActive(true);
-            Invoke("HideGrinchCanvas", 2);
 
             //add cooldown
-            canShowRageMessage = false;
-            Invoke("ResetRageMessage", 5f);
+            //canShowRageMessage = false;
+            //Invoke("ResetRageMessage", 5f);
         }
         //check for up tilt phone movement
         else if (currentRage == 2)
         {
+            rageModeText.text = "Rage Mode Charging...\n(Tilt Up to Activate)";
+            grinchCanvas.SetActive(true);
+            //Invoke("HideGrinchCanvas", 2);
+
             if (rotationRate.x < -0.5f)
             {
                 rageStatus++;
                 return;
             }
-            rageModeText.text = "Rage Mode Charging...\n(Tilt Up to Activate)";
-            grinchCanvas.SetActive(true);
-            Invoke("HideGrinchCanvas", 2);
 
             //add cooldown
-            canShowRageMessage = false;
-            Invoke("ResetRageMessage", 5f);
+            //canShowRageMessage = false;
+            //Invoke("ResetRageMessage", 5f);
         }
         else if (currentRage == 3)
         {
