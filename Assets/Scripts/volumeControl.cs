@@ -1,29 +1,40 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MusicVolumeController : MonoBehaviour
+public class volumeControl : MonoBehaviour
 {
     [Header("References")]
-    public Slider volumeSlider;          // Assign this in Inspector
-    public AudioSource musicSource;      // Your background music AudioSource
+    public Slider volumeSlider;              // Individual music slider
+    public AudioSource musicSource;          // Target audio source
 
-    private const string volumeKey = "MusicVolume";
+    private string key;
+    private const string masterKey = "MasterVolume";
 
     void Start()
     {
-        // Load saved volume or default to slider's current value
-        float savedVolume = PlayerPrefs.GetFloat(volumeKey, volumeSlider.value);
+        key = gameObject.name;
+        float savedVolume = PlayerPrefs.GetFloat(key, volumeSlider.value);
         volumeSlider.value = savedVolume;
-        musicSource.volume = savedVolume;
 
-        // Listen for changes
-        volumeSlider.onValueChanged.AddListener(SetVolume);
+        // Apply combined volume at start
+        UpdateEffectiveVolume();
+
+        // Listen for user changing music slider
+        volumeSlider.onValueChanged.AddListener(delegate {
+            SaveAndApply();
+        });
     }
 
-    public void SetVolume(float volume)
+    public void SaveAndApply()
     {
-        musicSource.volume = volume;
-        PlayerPrefs.SetFloat(volumeKey, volume);
+        PlayerPrefs.SetFloat(key, volumeSlider.value);
         PlayerPrefs.Save();
+        UpdateEffectiveVolume();
+    }
+
+    public void UpdateEffectiveVolume()
+    {
+        float master = PlayerPrefs.GetFloat(masterKey, 0.5f);
+        musicSource.volume = volumeSlider.value * master;
     }
 }

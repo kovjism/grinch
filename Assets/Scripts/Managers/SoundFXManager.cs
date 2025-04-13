@@ -26,7 +26,7 @@ public class SoundFXManager : MonoBehaviour
         }
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
         audioSource.clip = audioClip;
-        audioSource.volume = volume;
+        audioSource.volume = volume * PlayerPrefs.GetFloat("SFX Volume", 0.5f);
         audioSource.Play();
         for (int i = 0; i < 32; i++)
         {
