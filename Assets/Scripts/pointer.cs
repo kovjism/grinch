@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class pointer : MonoBehaviour
@@ -13,6 +14,8 @@ public class pointer : MonoBehaviour
     public GameObject reticle;
     public GameObject crosshair;
     public GameObject gunPickupPrefab; // presents pickup
+    public GameObject character;
+    public LayerMask ground;            // plane (for teleport)
 
     public float distance;              // length of raycast
     public Vector3 rayOrigin;           // start of raycast (for grabbing)
@@ -89,7 +92,13 @@ public class pointer : MonoBehaviour
             if (Physics.Raycast(ray, out hit, distance))                                        // if raycast hits something
             {
                 end = hit.point;
-
+                if ((Input.GetButtonDown("js3") || Input.GetKeyDown("t")) && ((1 << hit.collider.gameObject.layer) & ground) != 0)    // if no menu is open, 'Y' is pressed and raycast hit is on ground, teleport
+                {
+                    character.GetComponent<CharacterController>().enabled = false;                                  // allow teleportation
+                    character.transform.position = new Vector3(end.x, character.transform.position.y, end.z);       // set new location (keep y for same height)
+                    character.GetComponent<CharacterController>().enabled = true;                                   // re-enable movement
+                    start = transform.position + transform.TransformDirection(offset);                              // set new raycast starting point
+                }
                 // --- Door interaction ---
                 if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.O)) // Your shoot/interact button
                 {

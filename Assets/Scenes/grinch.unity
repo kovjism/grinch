@@ -1567,6 +1567,10 @@ MonoBehaviour:
   reticle: {fileID: 1142276465}
   crosshair: {fileID: 244482545}
   gunPickupPrefab: {fileID: 0}
+  character: {fileID: 873806987}
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
   distance: 50
   rayOrigin: {x: 0, y: 0, z: 0}
   rayDirection: {x: 0, y: 0, z: 0}
@@ -2041,7 +2045,7 @@ GameObject:
   - component: {fileID: 369289873}
   - component: {fileID: 369289872}
   - component: {fileID: 369289876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
