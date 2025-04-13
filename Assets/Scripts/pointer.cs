@@ -18,12 +18,9 @@ public class pointer : MonoBehaviour
     public LayerMask ground;            // plane (for teleport)
 
     public float distance;              // length of raycast
-    public Vector3 rayOrigin;           // start of raycast (for grabbing)
-    public Vector3 rayDirection;        // raycast direction (for grabbing)
 
     private LineRenderer lr;            // line renderer (to show pointer)
     private Outline lastObject;         // last object outlined
-    private GameObject lastHoveredUI;   // last button hovered
 
     private GameObject heldObject = null;
     private Transform grabAnchor; // an empty child of camera for holding objects
@@ -226,59 +223,9 @@ public class pointer : MonoBehaviour
                 }
             }
 
-            // variables for grabbing logic
-            rayOrigin = start;                          
-            rayDirection = transform.forward;
-
             // display raycast
             lr.SetPosition(0, start);                   
             lr.SetPosition(1, end);
-
-
-            // for button selection with pointer
-            PointerEventData pointerData = new PointerEventData(EventSystem.current);       // gets pointer data
-            pointerData.position = Camera.main.WorldToScreenPoint(end);                     // gets where pointer is pointing
-
-            List<RaycastResult> uiHits = new List<RaycastResult>();                         // list for hits
-            EventSystem.current.RaycastAll(pointerData, uiHits);                            // gets raycast hits
-
-            bool hoveredUI = false;
-
-            foreach (RaycastResult result in uiHits)                                        // for each hit, do hover and select logic
-            {
-                GameObject target = result.gameObject;                                      
-
-                if (target.GetComponent<Selectable>() != null)
-                {
-                    hoveredUI = true;
-                    // Highlight (hover)
-                    if (lastHoveredUI != target)
-                    {
-                        if (lastHoveredUI != null)
-                            ExecuteEvents.Execute(lastHoveredUI, pointerData, ExecuteEvents.pointerExitHandler);
-
-                        ExecuteEvents.Execute(target, pointerData, ExecuteEvents.pointerEnterHandler);
-                        lastHoveredUI = target;
-                    }
-
-                    // Click
-                    if (Input.GetButtonDown("js2") || Input.GetKeyDown("q"))
-                    {
-                        Button btn = target.GetComponent<Button>();
-                        if (btn != null)
-                            btn.onClick.Invoke();
-                    }
-
-                    break; // handle only first hit
-                }
-            }
-            if (!hoveredUI && lastHoveredUI != null)
-            {
-                ExecuteEvents.Execute(lastHoveredUI, pointerData, ExecuteEvents.pointerExitHandler);
-                lastHoveredUI = null;
-            }
-
-            //
         }
     }
 

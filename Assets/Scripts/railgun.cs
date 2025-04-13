@@ -65,11 +65,7 @@ public class railgun : gun
                 enemy enemyScript = hit.collider.GetComponent<enemy>();
                 enemyScript.takeDamage(damage);
             }
-            else
-            {
-                laserEndPoint = hit.point;
-                break;
-            }
+            laserEndPoint = hit.point;
         }
         laser.SetPosition(1, laserEndPoint);
         yield return new WaitForSeconds(laserDuration);

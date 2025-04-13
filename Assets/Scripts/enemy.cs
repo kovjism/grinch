@@ -10,6 +10,8 @@ public class enemy : MonoBehaviour
 
     private NavMeshAgent agent;
     private Transform player;
+    private menus menu;
+
     [SerializeField] private Healthbar healthbar;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,12 +28,22 @@ public class enemy : MonoBehaviour
         if (canvas != null) canvas.worldCamera = Camera.main;
 
         healthbar.UpdateHealthBar(maxHealth, currentHealth);
+
+        menu = FindAnyObjectByType<menus>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player.position);
+        if (menu.open)
+        {
+            agent.ResetPath();
+            agent.velocity = Vector3.zero;
+        } else
+        {
+            agent.SetDestination(player.position);
+        }
+            
     }
 
     
