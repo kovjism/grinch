@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,8 @@ public class menus : MonoBehaviour
     public GameObject firstButton;
     public GameObject guns;
     public bool open = false;
+    public GameObject reticle;
+    public GameObject crosshair;
 
     private Canvas settings;
     private Canvas options;
@@ -20,15 +23,19 @@ public class menus : MonoBehaviour
         settings.enabled = false;
         options.enabled = false;
         guns.SetActive(true);
+        reticle.SetActive(true);
+        crosshair.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("js10"))
         {
             settings.enabled = true;
             guns.SetActive(false);
+            reticle.SetActive(false);
+            crosshair?.SetActive(false);
             open = true;
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(firstButton);

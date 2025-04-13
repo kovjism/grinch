@@ -64,7 +64,7 @@ public class pointer : MonoBehaviour
             {
                 lastObject.enabled = false;                                 // disable outline for last object
             }
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("js6"))
             {
                 guns.SetActive(false);
                 reticle.SetActive(false);
@@ -72,7 +72,7 @@ public class pointer : MonoBehaviour
             }
         } else
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("js6"))
             {
                 guns.SetActive(true);
                 reticle.SetActive(true);
@@ -91,7 +91,7 @@ public class pointer : MonoBehaviour
                 end = hit.point;
 
                 // --- Door interaction ---
-                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.O)) // Your shoot/interact button
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.O)) // Your shoot/interact button
                 {
                     Transform hitTransform = hit.collider.transform;
 
@@ -104,7 +104,7 @@ public class pointer : MonoBehaviour
                 }
 
                 // --- Lamp interaction ---
-                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.L)) // Or same key as door
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.L)) // Or same key as door
                 {
                     Transform hitTransform = hit.collider.transform;
                     LampToggle lamp = hitTransform.GetComponentInParent<LampToggle>();
@@ -115,7 +115,7 @@ public class pointer : MonoBehaviour
                 }
 
                 // --- Throwable object pickup ---
-                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.T)) // T to pick up/throw
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.T)) // T to pick up/throw
                 {
                     Transform hitTransform = hit.collider.transform;
 
@@ -145,7 +145,7 @@ public class pointer : MonoBehaviour
                 }
 
                 // --- Gun pickup interaction ---
-                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.E)) // E to pick up gun
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E)) // E to pick up gun
                 {
                     Transform hitTransform = hit.collider.transform;
                     PresentOpener present = hitTransform.GetComponent<PresentOpener>();
@@ -182,7 +182,7 @@ public class pointer : MonoBehaviour
                 }
 
                 // === Grabbing Logic ===
-                if (Input.GetButtonDown("js5") || Input.GetKeyDown(KeyCode.G))
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.G))
                 {
                     if (heldObject == null)
                     {
@@ -253,7 +253,7 @@ public class pointer : MonoBehaviour
                     }
 
                     // Click
-                    if (Input.GetButtonDown("js5") || Input.GetKeyDown("q"))
+                    if (Input.GetButtonDown("js2") || Input.GetKeyDown("q"))
                     {
                         Button btn = target.GetComponent<Button>();
                         if (btn != null)

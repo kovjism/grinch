@@ -23,17 +23,17 @@ public class shoot : MonoBehaviour
     {
         float fillAmount = Mathf.Clamp01(1 - ((guns[currentGun].nextFire - Time.time) / guns[currentGun].fireRate));
         ammoBar.value = fillAmount;
-        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js0"))
+        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js5"))
         {
             guns[currentGun].Shoot();   
         }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetButtonDown("js10"))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetButtonDown("js7"))
         {
             currentGun = (currentGun + 1) % guns.Count;
             guns[currentGun].Equip();
             UpdateWeaponVisibility();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetButtonDown("js8"))
         {
             currentGun = (currentGun - 1 + guns.Count) % guns.Count;
             guns[currentGun].Equip();

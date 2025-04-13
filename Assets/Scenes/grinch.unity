@@ -1838,6 +1838,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8112662918913530917, guid: 08cb072512500c3479d2f37b12d4d825, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8436424731055617919, guid: 08cb072512500c3479d2f37b12d4d825, type: 3}
       propertyPath: m_Name
       value: Nightstand
@@ -2741,6 +2745,8 @@ MonoBehaviour:
   firstButton: {fileID: 1547097273}
   guns: {fileID: 762867648}
   open: 0
+  reticle: {fileID: 1142276465}
+  crosshair: {fileID: 244482545}
 --- !u!1001 &482591014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2749,6 +2755,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8112662918913530917, guid: 08cb072512500c3479d2f37b12d4d825, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8436424731055617919, guid: 08cb072512500c3479d2f37b12d4d825, type: 3}
       propertyPath: m_Name
       value: Nightstand (1)
@@ -4860,6 +4870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc1ae413c1be9b40ade6253e39620c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menu: {fileID: 471168410}
   speed: 6
   cameraObj: {fileID: 287612232}
   joyStickMode: 0
@@ -4875,7 +4886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8f23c7538e8ef48a42d9dfeb752558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grinchCanvas: {fileID: 8892767245852490195, guid: a2434e1758ad71342b76aaa84e722307, type: 3}
+  grinchCanvas: {fileID: 0}
 --- !u!1 &887767827
 GameObject:
   m_ObjectHideFlags: 0
@@ -8433,6 +8444,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1142276465}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 244482545}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1547097276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8714,6 +8749,10 @@ PrefabInstance:
     - target: {fileID: 7287137019966064018, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
       propertyPath: m_Name
       value: XRCardboardRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287137020585607023, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
+      propertyPath: m_SubmitButton
+      value: js0
       objectReference: {fileID: 0}
     - target: {fileID: 7287137020755404942, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
       propertyPath: m_LocalPosition.z

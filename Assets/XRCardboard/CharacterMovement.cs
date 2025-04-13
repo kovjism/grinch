@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public GameObject menu;
     CharacterController charCntrl;
     [Tooltip("The speed at which the character will move.")]
     public float speed = 5f;
@@ -21,6 +22,11 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (menu.GetComponent<menus>().open)
+        {
+            return;
+        }
+
         //Get horizontal and Vertical movements
         float horComp = Input.GetAxis("Horizontal");
         float vertComp = Input.GetAxis("Vertical");
