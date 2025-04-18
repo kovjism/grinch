@@ -23,21 +23,21 @@ public class PresentOpener : MonoBehaviour
 
         isOpened = true;
         // Spawn the gun at the present's position
-        Instantiate(gunPickupPrefab, transform.position, transform.rotation);
+        GameObject gun = Instantiate(gunPickupPrefab, transform.position, transform.rotation);
 
-        Outline outline = GetComponent<Outline>();
-        if (outline == null)
+        Outline outline = gun.GetComponent<Outline>();
+        if (!outline)
         {
-            outline = gameObject.AddComponent<Outline>();
+            outline = gun.AddComponent<Outline>();
         }
 
         outline.OutlineWidth = 5f;
-        outline.OutlineColor = Color.Lerp(colors[PlayerPrefs.GetInt("UIContrastMode", 0)], Color.red, 0.5f);
+        outline.OutlineColor = colors[PlayerPrefs.GetInt("UIContrastMode", 0)];
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.enabled = false;
 
         // Make sure it has a collider for raycast detection
-        if (GetComponent<Collider>() == null)
+        if (!GetComponent<Collider>())
         {
             BoxCollider collider = gameObject.AddComponent<BoxCollider>();
             collider.size = new Vector3(0.3f, 0.2f, 1f); // Adjust size to match gun
