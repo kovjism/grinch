@@ -74,7 +74,7 @@ public class pointer : MonoBehaviour
                     start = transform.position + transform.TransformDirection(offset);                              // set new raycast starting point
                 }
                 // --- Door interaction ---
-                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.O)) // Your shoot/interact button
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E)) // Your shoot/interact button
                 {
                     Transform hitTransform = hit.collider.transform;
 
@@ -87,7 +87,7 @@ public class pointer : MonoBehaviour
                 }
 
                 // --- Lamp interaction ---
-                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.L)) // Or same key as door
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E)) // Or same key as door
                 {
                     Transform hitTransform = hit.collider.transform;
                     LampToggle lamp = hitTransform.GetComponentInParent<LampToggle>();
@@ -98,7 +98,7 @@ public class pointer : MonoBehaviour
                 }
 
                 // --- Throwable object pickup ---
-                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.T)) // T to pick up/throw
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E)) // T to pick up/throw
                 {
                     Transform hitTransform = hit.collider.transform;
 
@@ -165,7 +165,7 @@ public class pointer : MonoBehaviour
                 }
 
                 // === Grabbing Logic ===
-                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.G))
+                if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E))
                 {
                     if (heldObject == null)
                     {

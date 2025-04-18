@@ -31,11 +31,11 @@ public class shoot : MonoBehaviour
         rotationRate = gyro.rotationRate;
         float fillAmount = Mathf.Clamp01(1 - ((guns[currentGun].nextFire - Time.time) / guns[currentGun].fireRate));
         ammoBar.value = fillAmount;
-        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js5"))
+        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js7"))
         {
             guns[currentGun].Shoot();   
         }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetButtonDown("js7") || (rotationRate.x < -0.8f && canConfirm))
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetButtonDown("js5") || (rotationRate.x < -0.8f && canConfirm))
         {
             canConfirm = false;
             lastNodTime = Time.time;
@@ -43,7 +43,7 @@ public class shoot : MonoBehaviour
             guns[currentGun].Equip();
             UpdateWeaponVisibility();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetButtonDown("js8"))
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetButtonDown("js4"))
         {
             currentGun = (currentGun - 1 + guns.Count) % guns.Count;
             guns[currentGun].Equip();

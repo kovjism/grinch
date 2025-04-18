@@ -76,6 +76,7 @@ public class UIContrastManager : MonoBehaviour
         foreach (var outline in outlines)
         {
             outline.OutlineColor = uiColor;
+            outline.OutlineWidth = 5;
         }
     }
 
