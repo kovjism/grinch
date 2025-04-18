@@ -18,8 +18,6 @@ public class pointer : MonoBehaviour
     public LayerMask ground;            // plane (for teleport)
 
     public float distance;              // length of raycast
-
-    private LineRenderer lr;            // line renderer (to show pointer)
     private Outline lastObject;         // last object outlined
 
     private GameObject heldObject = null;
@@ -36,18 +34,12 @@ public class pointer : MonoBehaviour
     void Start()
     {
         distance = 50f;
-        lr = GetComponent<LineRenderer>();      // get line renderer
-        lr.positionCount = 2;                   // set line renderer to have 2 points
-        lr.startWidth = 0.01f;                  // set starting width
-        lr.endWidth = 0.05f;                    // set ending width
-        lr.enabled = true;                      // show line
-
         grabAnchor = new GameObject("GrabAnchor").transform;
         grabAnchor.SetParent(transform); // attach to pointer (camera probably)
         grabAnchor.localPosition = new Vector3(0f, 0f, 6f); // position 2m in front
 
-        // Get reference to the shoot script on the guns GameObject
         shootScript = guns.GetComponent<shoot>();
+        // Get reference to the shoot script on the guns GameObject
         if (shootScript == null)
         {
             Debug.LogError("No shoot script found on guns GameObject!");
@@ -57,29 +49,14 @@ public class pointer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (menu.GetComponent<menus>().open || guns.activeSelf)        // if settings or inventory open, do not show pointer
+        if (menu.GetComponent<menus>().open)        // if settings or inventory open, do not show pointer
         {
-            lr.enabled = false;                                             // hide line
             if (lastObject != null)                                         // if there is a last object outlined
             {
                 lastObject.enabled = false;                                 // disable outline for last object
             }
-            if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("js6"))
-            {
-                guns.SetActive(false);
-                reticle.SetActive(false);
-                crosshair.SetActive(false);
-            }
         } else
-        {
-            if (Input.GetKeyDown(KeyCode.F) || Input.GetButtonDown("js6"))
-            {
-                guns.SetActive(true);
-                reticle.SetActive(true);
-                crosshair.SetActive(true);
-            }
-
-            lr.enabled = true;                                                                  // show line
+        {                                           // show line
             Vector3 start = transform.position + transform.TransformDirection(offset);          // start raycast below camera
             Vector3 end = start + transform.forward * distance;                                 // end raycast in direction faced at distance away
 
@@ -222,10 +199,6 @@ public class pointer : MonoBehaviour
                     lastObject.enabled = false;         // remove outline
                 }
             }
-
-            // display raycast
-            lr.SetPosition(0, start);                   
-            lr.SetPosition(1, end);
         }
     }
 

@@ -15,10 +15,10 @@ public class XRCardboardController : MonoBehaviour
     GameObject vrGroup = default;
     [SerializeField]
     GameObject standardGroup = default;
-    [SerializeField]
-    XRCardboardInputModule vrInputModule = default;
-    [SerializeField]
-    StandaloneInputModule standardInputModule = default;
+    //[SerializeField]
+    //XRCardboardInputModule vrInputModule = default;
+    //[SerializeField]
+    //StandaloneInputModule standardInputModule = default;
     [SerializeField, Range(.05f, 2)]
     float dragRate = .2f;
 
@@ -130,8 +130,8 @@ public class XRCardboardController : MonoBehaviour
     {
         standardGroup.SetActive(!vrActive);
         vrGroup.SetActive(vrActive);
-        standardInputModule.enabled = !vrActive;
-        vrInputModule.enabled = vrActive;
+        // standardInputModule.enabled = !vrActive;
+        // vrInputModule.enabled = vrActive;
         poseDriver.enabled = vrActive;
     }
 
