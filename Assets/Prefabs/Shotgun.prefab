@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 37845262454082091}
   - component: {fileID: 2709188679326235825}
   - component: {fileID: 5704426589738367646}
-  - component: {fileID: 8222083310856410547}
+  - component: {fileID: -5458621905300543227}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: PickupGun
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6271162501892922549, guid: 3120d3a80d908834d9fef2e8a3b8c3c7, type: 3}
   muzzle: {fileID: 8584947469696119143}
+  icon: {fileID: 21300000, guid: 2f2d8cf44d0328440bc5bff3df110bdf, type: 3}
   cameraObject: {fileID: 0}
   bulletSpeed: 200
   maxDistance: 40
@@ -155,11 +156,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
+  outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &8222083310856410547
+--- !u!114 &-5458621905300543227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

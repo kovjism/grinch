@@ -6,7 +6,7 @@ public class GunPickup : MonoBehaviour
     public GameObject gunPrefab;
 
     // Gun type information - useful if you want to check what type of gun it is
-    public string gunType = "Shotgun";
+    public string gunType;
 
     // Optional - if you want to disable pickup until certain conditions are met
     public bool canBePickedUp = true;

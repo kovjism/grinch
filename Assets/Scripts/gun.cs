@@ -5,6 +5,7 @@ public abstract class gun : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform muzzle;
+    public Sprite icon;
     public Camera cameraObject;
     public float bulletSpeed;
     public float maxDistance = 100f;
