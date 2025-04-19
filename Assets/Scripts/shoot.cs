@@ -35,6 +35,10 @@ public class shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (guns.Count == 0)
+        {
+            return;
+        }
         rotationRate = gyro.rotationRate;
         float fillAmount = Mathf.Clamp01(1 - ((guns[currentGun].nextFire - Time.time) / guns[currentGun].fireRate));
         ammoBar.value = fillAmount;
