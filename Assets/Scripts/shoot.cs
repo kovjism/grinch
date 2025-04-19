@@ -81,7 +81,6 @@ public class shoot : MonoBehaviour
     // Add this method to your shoot class
     public bool AddGun(GameObject gunPrefab)
     {
-        Debug.LogError("Adding Gun!");
         if (gunPrefab == null) return false;
 
         // Check if this gun is already in our inventory

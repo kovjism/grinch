@@ -25,7 +25,7 @@ public class menus : MonoBehaviour
         settings.enabled = false;
         options.enabled = false;
         controls.enabled = false;
-        guns.SetActive(true);
+        //guns.SetActive(true);
         reticle.SetActive(true);
         crosshair.SetActive(true);
     }
