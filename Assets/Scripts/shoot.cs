@@ -78,7 +78,7 @@ public class shoot : MonoBehaviour
         }
     }
 
-    // Add this method to your shoot class
+    
     public bool AddGun(GameObject gunPrefab)
     {
         if (gunPrefab == null) return false;

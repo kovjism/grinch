@@ -111,7 +111,20 @@ public class pointer : MonoBehaviour
                             Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
                             rb.isKinematic = true;
                             throwableObject.transform.SetParent(transform); // Attach to pointer/camera
-                            throwableObject.transform.localPosition = new Vector3(0, 0, 3); // Position in front of player
+                            throwableObject.transform.localPosition = new Vector3(0, 0, 6); // Position in front of player
+                                                                                            // Reset hasHit so it can damage again
+                            ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
+                            if (dmgScript != null)
+                            {
+                                dmgScript.ResetHit();
+                                dmgScript.SetTransparency(true);  // Make transparent when picked up
+                            }
+
+                            // Unequip the gun when picking up throwable
+                            if (guns != null)
+                            {
+                                guns.SetActive(false);
+                            }
                         }
                         else
                         {
@@ -122,7 +135,20 @@ public class pointer : MonoBehaviour
                             //rb.AddForce(transform.forward * throwStrength, ForceMode.VelocityChange);
                             rb.AddForce(transform.forward * throwStrength, ForceMode.Impulse);
                             rb.linearVelocity = transform.forward * throwStrength;
+
+                            ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
+                            if (dmgScript != null)
+                            {
+                                dmgScript.SetTransparency(false);  // Make opaque when thrown
+                            }
+
                             throwableObject = null;
+
+                            // Reequip the gun after throwing
+                            if (guns != null)
+                            {
+                                guns.SetActive(true);
+                            }
                         }
                     }
                 }
