@@ -14,15 +14,18 @@ public class menus : MonoBehaviour
 
     private Canvas settings;
     private Canvas options;
+    private Canvas controls;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        settings = GameObject.Find("Settings").GetComponent<Canvas>();
+        settings = GameObject.Find("Settings Menu").GetComponent<Canvas>();
         options = GameObject.Find("Options Menu").GetComponent<Canvas>();
+        controls = GameObject.Find("Controls Menu").GetComponent<Canvas>();
         settings.enabled = false;
         options.enabled = false;
-        guns.SetActive(true);
+        controls.enabled = false;
+        //guns.SetActive(true);
         reticle.SetActive(true);
         crosshair.SetActive(true);
     }

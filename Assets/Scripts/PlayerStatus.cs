@@ -86,25 +86,26 @@ public class Player_Status : MonoBehaviour
             rageModeText.text = "Rage Mode Activated!";
             grinchCanvas.SetActive(true);
             ActivateRage();
-            rageStatus = 0;
+            //rageStatus = 0;
         }
     }
     private void ActivateRage()
     {
         //start 5 second countdown
-        StartCoroutine(RageCoroutine());
-    }
-    private IEnumerator RageCoroutine()
-    {
-        float originalSpeed = movementScript.speed;
+        //StartCoroutine(RageCoroutine());
         movementScript.speed = 18f;
-
-        // Wait during rage
-        yield return new WaitForSeconds(5f);
-
-        HideGrinchCanvas();
-        movementScript.speed = originalSpeed;
     }
+    //private IEnumerator RageCoroutine()
+    //{
+    //    float originalSpeed = movementScript.speed;
+    //    movementScript.speed = 18f;
+
+    //    //// Wait during rage
+    //    //yield return new WaitForSeconds(5f);
+
+    //    //HideGrinchCanvas();
+    //    //movementScript.speed = originalSpeed;
+    //}
     private void ResetRageMessage()
     {
         canShowRageMessage = true;

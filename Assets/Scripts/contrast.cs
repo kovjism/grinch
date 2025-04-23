@@ -8,17 +8,17 @@ public class UIContrastManager : MonoBehaviour
     public Camera mainCamera;
 
     [Header("Color Themes")]
-    public Color defaultBG = new Color32(0, 100, 0, 255); // Dark green
-    public Color highContrastBG = Color.black;
-    public Color colorblindBG = new Color32(50, 50, 50, 255);
+    private Color defaultBG = new Color32(0, 100, 0, 255); // Dark green
+    private Color highContrastBG = Color.black;
+    private Color colorblindBG = new Color32(50, 50, 50, 255);
 
-    public Color defaultText = Color.black;
-    public Color highContrastText = Color.white;
-    public Color colorblindText = Color.white;
+    private Color defaultText = Color.black;
+    private Color highContrastText = Color.white;
+    private Color colorblindText = Color.white;
 
-    public Color defaultUIBase = Color.white;
-    public Color highContrastUIBase = new Color32(255, 215, 0, 255); // Gold
-    public Color colorblindUIBase = new Color32(30, 144, 255, 255);  // Dodger Blue
+    private Color defaultUIBase = Color.white;
+    private Color highContrastUIBase = new Color32(255, 215, 0, 255); // Gold
+    private Color colorblindUIBase = new Color32(30, 144, 255, 255);  // Dodger Blue
 
     void Start()
     {
@@ -76,6 +76,7 @@ public class UIContrastManager : MonoBehaviour
         foreach (var outline in outlines)
         {
             outline.OutlineColor = uiColor;
+            outline.OutlineWidth = 5;
         }
     }
 
