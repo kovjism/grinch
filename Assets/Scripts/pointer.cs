@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static UnityEngine.UI.Image;
 
 public class pointer : MonoBehaviour
 {
@@ -24,11 +25,21 @@ public class pointer : MonoBehaviour
     private Transform grabAnchor; // an empty child of camera for holding objects
 
     private GameObject throwableObject = null;
-    public float throwStrength = 10000f;
+    //public float throwStrength = 10000f;
 
     private shoot shootScript;
 
     private Vector3 offset = new Vector3(0f, -0.1f, 0f);    // offset to move pointer starting point below camera
+
+    private LineRenderer lineRenderer;
+    private bool showTrajectory = false;
+    private int resolution = 30;
+    private float timeStep = 0.1f;
+
+    private bool grabbing = false;
+    private Vector3 targetPoint;
+    private Vector3 trajectoryVelocity;
+    private float defaultThrow = 20f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,11 +55,25 @@ public class pointer : MonoBehaviour
         {
             Debug.LogError("No shoot script found on guns GameObject!");
         }
+        lineRenderer = GetComponent<LineRenderer>();      // get line renderer
+        lineRenderer.startWidth = 0.2f;                  // set starting width
+        lineRenderer.endWidth = 0.2f;                    // set ending width
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Vector2 aimInput = new Vector2(Input.GetAxis("RightStickHorizontal"), Input.GetAxis("RightStickVertical"));
+        //targetPoint += transform.right * aimInput.x * 3f + transform.up * aimInput.y * 3f;
+        if (showTrajectory)
+        {
+            targetPoint = GetTargetPoint();
+            trajectoryVelocity = CalculateVelocity(throwableObject.transform.position, targetPoint, 1.5f);
+            ShowTrajectory(throwableObject.transform.position, trajectoryVelocity);
+        } else
+        {
+            HideTrajectory();
+        }
         if (menu.GetComponent<menus>().open)        // if settings or inventory open, do not show pointer
         {
             if (lastObject != null)                                         // if there is a last object outlined
@@ -56,7 +81,7 @@ public class pointer : MonoBehaviour
                 lastObject.enabled = false;                                 // disable outline for last object
             }
         } else
-        {                                           // show line
+        {
             Vector3 start = transform.position + transform.TransformDirection(offset);          // start raycast below camera
             Vector3 end = start + transform.forward * distance;                                 // end raycast in direction faced at distance away
 
@@ -100,54 +125,66 @@ public class pointer : MonoBehaviour
                 // --- Throwable object pickup ---
                 if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E)) // T to pick up/throw
                 {
-                    Transform hitTransform = hit.collider.transform;
-
-                    if (hitTransform.CompareTag("Throwable"))
+                    if (grabbing)
                     {
-                        if (throwableObject == null)
-                        {
-                            // Pick up (attach to camera or hand)
-                            throwableObject = hitTransform.gameObject;
-                            Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
-                            rb.isKinematic = true;
-                            throwableObject.transform.SetParent(transform); // Attach to pointer/camera
-                            throwableObject.transform.localPosition = new Vector3(0, 0, 6); // Position in front of player
-                                                                                            // Reset hasHit so it can damage again
-                            ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
-                            if (dmgScript != null)
-                            {
-                                dmgScript.ResetHit();
-                                dmgScript.SetTransparency(true);  // Make transparent when picked up
-                            }
+                        HideTrajectory();
+                        showTrajectory = false;
+                        trajectoryVelocity = CalculateVelocity(throwableObject.transform.position, end, 1.5f);
+                        // Throw
+                        throwableObject.transform.SetParent(null);
+                        Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
+                        rb.isKinematic = false;
+                        //rb.AddForce(transform.forward * throwStrength, ForceMode.VelocityChange);
+                        //rb.AddForce(throwableObject.transform.forward * throwStrength, ForceMode.Impulse);
+                        rb.linearVelocity = trajectoryVelocity;
+                        //rb.linearVelocity = transform.forward * throwStrength;
 
-                            // Unequip the gun when picking up throwable
-                            if (guns != null)
-                            {
-                                guns.SetActive(false);
-                            }
+                        ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
+                        if (dmgScript != null)
+                        {
+                            dmgScript.SetTransparency(false);  // Make opaque when thrown
                         }
-                        else
+
+                        throwableObject = null;
+
+                        // Reequip the gun after throwing
+                        if (guns != null)
                         {
-                            // Throw
-                            throwableObject.transform.SetParent(null);
-                            Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
-                            rb.isKinematic = false;
-                            //rb.AddForce(transform.forward * throwStrength, ForceMode.VelocityChange);
-                            rb.AddForce(transform.forward * throwStrength, ForceMode.Impulse);
-                            rb.linearVelocity = transform.forward * throwStrength;
+                            guns.SetActive(true);
+                        }
+                        grabbing = false;
+                    } else
+                    {
+                        Transform hitTransform = hit.collider.transform;
 
-                            ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
-                            if (dmgScript != null)
+                        if (hitTransform.CompareTag("Throwable"))
+                        {
+                            if (throwableObject == null)
                             {
-                                dmgScript.SetTransparency(false);  // Make opaque when thrown
-                            }
+                                // Pick up (attach to camera or hand)
+                                throwableObject = hitTransform.gameObject;
+                                Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
+                                rb.isKinematic = true;
+                                throwableObject.transform.SetParent(transform); // Attach to pointer/camera
+                                throwableObject.transform.localPosition = new Vector3(1, -0.5f, 2); // Position in front of player
+                                trajectoryVelocity = CalculateVelocity(throwableObject.transform.position, end, 1.5f);
+                                ShowTrajectory(throwableObject.transform.position, trajectoryVelocity);
+                                showTrajectory = true;
 
-                            throwableObject = null;
+                                // Reset hasHit so it can damage again
+                                ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
+                                if (dmgScript != null)
+                                {
+                                    dmgScript.ResetHit();
+                                    dmgScript.SetTransparency(true);  // Make transparent when picked up
+                                }
 
-                            // Reequip the gun after throwing
-                            if (guns != null)
-                            {
-                                guns.SetActive(true);
+                                // Unequip the gun when picking up throwable
+                                if (guns != null)
+                                {
+                                    guns.SetActive(false);
+                                }
+                                grabbing = true;
                             }
                         }
                     }
@@ -224,8 +261,94 @@ public class pointer : MonoBehaviour
                 {
                     lastObject.enabled = false;         // remove outline
                 }
+                if (grabbing && throwableObject != null && (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E)))
+                {
+                    HideTrajectory();
+                    showTrajectory = false;
+                    targetPoint = GetTargetPoint();
+                    trajectoryVelocity = CalculateVelocity(throwableObject.transform.position, targetPoint, 1.5f);
+                    // Throw
+                    throwableObject.transform.SetParent(null);
+                    Rigidbody rb = throwableObject.GetComponent<Rigidbody>();
+                    rb.isKinematic = false;
+                    //rb.AddForce(transform.forward * throwStrength, ForceMode.VelocityChange);
+                    //rb.AddForce(throwableObject.transform.forward * throwStrength, ForceMode.Impulse);
+                    rb.linearVelocity = trajectoryVelocity;
+                    //rb.linearVelocity = transform.forward * throwStrength;
+
+                    ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
+                    if (dmgScript != null)
+                    {
+                        dmgScript.SetTransparency(false);  // Make opaque when thrown
+                    }
+
+                    throwableObject = null;
+
+                    // Reequip the gun after throwing
+                    if (guns != null)
+                    {
+                        guns.SetActive(true);
+                    }
+                    grabbing = false;
+                }
+            }
+            
+        }
+    }
+    public static Vector3 CalculateVelocity(Vector3 origin, Vector3 target, float arcHeight)
+    {
+        arcHeight = Mathf.Clamp(arcHeight, 0.1f, (target - origin).magnitude * 0.5f);
+        Vector3 direction = target - origin;
+        Vector3 horizontal = new Vector3(direction.x, 0f, direction.z);
+        float distance = horizontal.magnitude;
+
+        float yOffset = direction.y;
+
+        float initialY = Mathf.Sqrt(-2f * Physics.gravity.y * arcHeight);
+        float timeUp = initialY / -Physics.gravity.y;
+        float fallHeight = Mathf.Max(0.1f, yOffset - arcHeight); // Prevent negative
+        float timeDown = Mathf.Sqrt(2f * fallHeight / -Physics.gravity.y);
+        float totalTime = timeUp + timeDown;
+
+        Vector3 velocity = horizontal / totalTime;
+        velocity.y = initialY;
+
+        return velocity;
+    }
+
+    public void ShowTrajectory(Vector3 startPos, Vector3 startVelocity)
+    {
+        lineRenderer.positionCount = resolution;
+
+        for (int i = 0; i < resolution; i++)
+        {
+            float time = i * timeStep;
+            Vector3 pos = startPos + startVelocity * time + 0.5f * Physics.gravity * time * time;
+            lineRenderer.SetPosition(i, pos);
+
+            // Optional: break on collision
+            if (i > 0 && Physics.Raycast(lineRenderer.GetPosition(i - 1), pos - lineRenderer.GetPosition(i - 1), out RaycastHit hit, Vector3.Distance(pos, lineRenderer.GetPosition(i - 1))))
+            {
+                lineRenderer.positionCount = i + 1;
+                lineRenderer.SetPosition(i, hit.point);
+                break;
             }
         }
     }
 
+    public void HideTrajectory()
+    {
+        lineRenderer.positionCount = 0;
+    }
+
+    private Vector3 GetTargetPoint()
+    {
+        Vector3 origin = transform.position + transform.TransformDirection(offset);
+        Ray ray = new Ray(origin, transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, distance, ~0))
+        {
+            return hit.point;
+        }
+        return origin + transform.forward * defaultThrow;
+    }
 }
