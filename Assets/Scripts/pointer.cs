@@ -297,23 +297,25 @@ public class pointer : MonoBehaviour
     }
     public static Vector3 CalculateVelocity(Vector3 origin, Vector3 target, float arcHeight)
     {
-        arcHeight = Mathf.Clamp(arcHeight, 0.1f, (target - origin).magnitude * 0.5f);
-        Vector3 direction = target - origin;
-        Vector3 horizontal = new Vector3(direction.x, 0f, direction.z);
-        float distance = horizontal.magnitude;
+        Vector3 displacement = target - origin;
+        Vector3 displacementXZ = new Vector3(displacement.x, 0f, displacement.z);
 
-        float yOffset = direction.y;
+        float displacementY = displacement.y;
 
-        float initialY = Mathf.Sqrt(-2f * Physics.gravity.y * arcHeight);
-        float timeUp = initialY / -Physics.gravity.y;
-        float fallHeight = Mathf.Max(0.1f, yOffset - arcHeight); // Prevent negative
-        float timeDown = Mathf.Sqrt(2f * fallHeight / -Physics.gravity.y);
+        // Clamp arcHeight to avoid invalid sqrt
+        arcHeight = Mathf.Clamp(arcHeight, 0.1f, Mathf.Max(0.1f, displacementY + 5f));
+
+        float timeUp = Mathf.Sqrt(-2f * arcHeight / Physics.gravity.y);
+        float timeDown = Mathf.Sqrt(2f * Mathf.Max(0.1f, arcHeight - displacementY) / -Physics.gravity.y);
         float totalTime = timeUp + timeDown;
 
-        Vector3 velocity = horizontal / totalTime;
-        velocity.y = initialY;
+        if (totalTime <= 0.01f || float.IsNaN(totalTime))
+            totalTime = 0.5f; // Fallback
 
-        return velocity;
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2f * Physics.gravity.y * arcHeight);
+        Vector3 velocityXZ = displacementXZ / totalTime;
+
+        return velocityXZ + velocityY;
     }
 
     public void ShowTrajectory(Vector3 startPos, Vector3 startVelocity)
