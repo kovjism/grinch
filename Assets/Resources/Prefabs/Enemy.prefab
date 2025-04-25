@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &576994896878736934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8398906646834314873}
+  m_Layer: 0
+  m_Name: HoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8398906646834314873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576994896878736934}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.13, y: 0, z: -0.752}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 76585763376084162}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7246167075743632778
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,7 +65,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8398906646834314873}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &901234226011682567
@@ -68,7 +100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f58cf65ea995c4b45be95713bdea8134, type: 2}
+  - {fileID: 2100000, guid: a365d57dfc187de49bca6e05c8483093, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,6 +187,8 @@ MonoBehaviour:
   maxHealth: 5
   damageSoundClip: {fileID: 8300000, guid: 42612f5c9556cbe4e94b356ecc572917, type: 3}
   healthbarPrefab: {fileID: 4960448075451345428, guid: d5ef79da87766431d93b7a2b4cdebed1, type: 3}
+  pickupTag: Pickup
+  holdPoint: {fileID: 8398906646834314873}
   healthbar: {fileID: 218946189749363621, guid: d5ef79da87766431d93b7a2b4cdebed1, type: 3}
 --- !u!195 &3009447970180294298
 NavMeshAgent:

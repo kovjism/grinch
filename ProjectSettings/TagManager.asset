@@ -11,6 +11,8 @@ TagManager:
   - Throwable
   - PickupGun
   - Present
+  - Pickup
+  - EscapePoint
   layers:
   - Default
   - TransparentFX
