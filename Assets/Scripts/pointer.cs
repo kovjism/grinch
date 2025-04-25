@@ -41,6 +41,8 @@ public class pointer : MonoBehaviour
     private Vector3 trajectoryVelocity;
     private float defaultThrow = 20f;
 
+    private float lastValidTargetDistance = 20f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -345,12 +347,16 @@ public class pointer : MonoBehaviour
 
     private Vector3 GetTargetPoint()
     {
-        Vector3 origin = transform.position + transform.TransformDirection(offset);
-        Ray ray = new Ray(origin, transform.forward);
+        Vector3 rayOrigin = transform.position + transform.TransformDirection(offset);
+        Ray ray = new Ray(rayOrigin, transform.forward);
+
         if (Physics.Raycast(ray, out RaycastHit hit, distance, ~0))
         {
+            lastValidTargetDistance = Vector3.Distance(rayOrigin, hit.point); // Cache last good distance
             return hit.point;
         }
-        return origin + transform.forward * defaultThrow;
+
+        // Ray missed, but use last known good distance in current direction
+        return rayOrigin + transform.forward * lastValidTargetDistance;
     }
 }
