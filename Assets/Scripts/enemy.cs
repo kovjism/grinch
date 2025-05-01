@@ -139,7 +139,7 @@ public class enemy : MonoBehaviour
         carriedItem.transform.SetParent(null); // Unset the holdPoint parent
         carriedItem.GetComponent<Collider>().enabled = true; // Re-enable the collider so other enemies can pick it up
         PickupItem pickupItem = carriedItem.GetComponent<PickupItem>();
-if (pickupItem != null) pickupItem.isTaken = false;
+        if (pickupItem != null) pickupItem.isTaken = false;
         // If the item has a Rigidbody, let it fall to the ground
         Rigidbody rb = carriedItem.GetComponent<Rigidbody>();
         if (rb != null)

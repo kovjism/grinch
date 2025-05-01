@@ -73,7 +73,7 @@ public class spawner : MonoBehaviour
             currentWave++;
             int enemiesToSpawn = numEnemies + currentWave; // optional difficulty scaling
             SpawnWave(enemiesToSpawn);
-            waveText.text = $"Wave {currentWave}";
+            waveText.text = $"Wave {currentWave}/5";
 
         }
     }
