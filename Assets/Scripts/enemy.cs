@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class enemy : MonoBehaviour
 {
@@ -50,35 +51,35 @@ public class enemy : MonoBehaviour
             return;
         } 
         if (!hasItem)
-{
-    // Check if the current targetItem is now taken
-    if (targetItem != null)
-    {
-        PickupItem pickupScript = targetItem.GetComponent<PickupItem>();
-        if (pickupScript == null || pickupScript.isTaken)
         {
-            targetItem = null; // Clear it so we can look for a new one
+            // Check if the current targetItem is now taken
+            if (targetItem != null)
+            {
+                PickupItem pickupScript = targetItem.GetComponent<PickupItem>();
+                if (pickupScript == null || pickupScript.isTaken)
+                {
+                    targetItem = null; // Clear it so we can look for a new one
+                }
+            }
+
+            // If no target or previous was taken, find a new one
+            if (targetItem == null)
+            {
+                targetItem = FindClosestPickup();
+            }
+
+            // If we found a valid target, go to it
+            if (targetItem != null)
+            {
+                agent.SetDestination(targetItem.transform.position);
+
+                float distance = Vector3.Distance(transform.position, targetItem.transform.position);
+                if (distance < 2f)
+                {
+                    PickUpItem(targetItem);
+                }
+            }
         }
-    }
-
-    // If no target or previous was taken, find a new one
-    if (targetItem == null)
-    {
-        targetItem = FindClosestPickup();
-    }
-
-    // If we found a valid target, go to it
-    if (targetItem != null)
-    {
-        agent.SetDestination(targetItem.transform.position);
-
-        float distance = Vector3.Distance(transform.position, targetItem.transform.position);
-        if (distance < 2f)
-        {
-            PickUpItem(targetItem);
-        }
-    }
-}
         else
         {
             agent.SetDestination(escapePoint.position);
@@ -90,72 +91,78 @@ public class enemy : MonoBehaviour
             }
         }
     }
+
     GameObject FindClosestPickup()
-{
-    GameObject[] pickups = GameObject.FindGameObjectsWithTag(pickupTag);
-    GameObject closest = null;
-    float closestDistance = Mathf.Infinity;
-
-    foreach (GameObject obj in pickups)
     {
-        PickupItem pickupItem = obj.GetComponent<PickupItem>();
-        if (pickupItem != null && pickupItem.isTaken) continue; // Skip already taken
+        GameObject[] pickups = GameObject.FindGameObjectsWithTag(pickupTag);
+        GameObject closest = null;
+        float closestDistance = Mathf.Infinity;
 
-        float dist = Vector3.Distance(transform.position, obj.transform.position);
-        if (dist < closestDistance)
+        foreach (GameObject obj in pickups)
         {
-            closest = obj;
-            closestDistance = dist;
-        }
-    }
+            PickupItem pickupItem = obj.GetComponent<PickupItem>();
+            if (pickupItem != null && pickupItem.isTaken) continue; // Skip already taken
 
-    return closest;
-}
+            float dist = Vector3.Distance(transform.position, obj.transform.position);
+            if (dist < closestDistance)
+            {
+                closest = obj;
+                closestDistance = dist;
+            }
+        }
+
+        return closest;
+    }
 
 
     void PickUpItem(GameObject item)
-{
-    carriedItem = item;
-    hasItem = true;
+    {
+        carriedItem = item;
+        hasItem = true;
 
-    item.transform.SetParent(holdPoint);
-    item.transform.localPosition = Vector3.zero;
-    item.GetComponent<Collider>().enabled = false;
+        item.transform.SetParent(holdPoint);
+        item.transform.localPosition = Vector3.zero;
+        item.GetComponent<Collider>().enabled = false;
 
-    PickupItem pickupItem = item.GetComponent<PickupItem>();
-    if (pickupItem != null) pickupItem.isTaken = true; // mark as taken
+        PickupItem pickupItem = item.GetComponent<PickupItem>();
+        if (pickupItem != null) pickupItem.isTaken = true; // mark as taken
 
-    Rigidbody rb = item.GetComponent<Rigidbody>();
-    if (rb != null) rb.isKinematic = true;
-}
+        Rigidbody rb = item.GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+    }
 
 
     void Escape()
-{
-    // Check if the enemy is carrying an item
-    if (carriedItem != null)
     {
-        // Drop the item near the enemy
-        carriedItem.transform.SetParent(null); // Unset the holdPoint parent
-        carriedItem.GetComponent<Collider>().enabled = true; // Re-enable the collider so other enemies can pick it up
-        PickupItem pickupItem = carriedItem.GetComponent<PickupItem>();
-        if (pickupItem != null) pickupItem.isTaken = false;
-        // If the item has a Rigidbody, let it fall to the ground
-        Rigidbody rb = carriedItem.GetComponent<Rigidbody>();
-        if (rb != null)
+        // Check if the enemy is carrying an item
+        if (carriedItem != null)
         {
-            rb.isKinematic = false; // Make the Rigidbody dynamic so it can fall
-            rb.useGravity = true; // Ensure gravity is enabled
+            // Drop the item near the enemy
+            carriedItem.transform.SetParent(null); // Unset the holdPoint parent
+            carriedItem.GetComponent<Collider>().enabled = true; // Re-enable the collider so other enemies can pick it up
+            PickupItem pickupItem = carriedItem.GetComponent<PickupItem>();
+            if (pickupItem != null) pickupItem.isTaken = false;
+            // If the item has a Rigidbody, let it fall to the ground
+            Rigidbody rb = carriedItem.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false; // Make the Rigidbody dynamic so it can fall
+                rb.useGravity = true; // Ensure gravity is enabled
+            }
+
+            // Position the item a little above the ground so it falls down
+            carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+
+            // Create a new GameObject to handle the gift destruction
+            GameObject destroyer = new GameObject("GiftDestroyer");
+            GiftDestroyer destroyerScript = destroyer.AddComponent<GiftDestroyer>();
+            destroyerScript.Initialize(carriedItem);
         }
 
-        // Position the item a little above the ground so it falls down
-        carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        // Destroy the enemy object (the enemy escapes)
+        Destroy(gameObject);
     }
 
-    // Destroy the enemy object (the enemy escapes)
-    Destroy(gameObject);
-}
-    
     public void takeDamage(int damage)
     {
         //play ouch sound
@@ -172,26 +179,49 @@ public class enemy : MonoBehaviour
             healthbar.UpdateHealthBar(maxHealth, currentHealth);
          }
     }
-void DropItem()
-{
-    if (carriedItem != null)
+
+    void DropItem()
     {
-        carriedItem.transform.SetParent(null);
-        carriedItem.GetComponent<Collider>().enabled = true;
-
-        PickupItem pickupItem = carriedItem.GetComponent<PickupItem>();
-        if (pickupItem != null) pickupItem.isTaken = false;
-
-        Rigidbody rb = carriedItem.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (carriedItem != null)
         {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-        }
+            carriedItem.transform.SetParent(null);
+            carriedItem.GetComponent<Collider>().enabled = true;
 
-        carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            PickupItem pickupItem = carriedItem.GetComponent<PickupItem>();
+            if (pickupItem != null) pickupItem.isTaken = false;
+
+            Rigidbody rb = carriedItem.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.useGravity = true;
+            }
+
+            carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        }
     }
-}
 
     
+}
+
+public class GiftDestroyer : MonoBehaviour
+{
+    private GameObject giftToDestroy;
+
+    public void Initialize(GameObject gift)
+    {
+        giftToDestroy = gift;
+        StartCoroutine(DestroyGift());
+    }
+
+    private IEnumerator DestroyGift()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        if (giftToDestroy != null)
+        {
+            Destroy(giftToDestroy);
+        }
+        Destroy(gameObject); // Destroy this helper object as well
+    }
 }
