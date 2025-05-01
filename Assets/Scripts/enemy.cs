@@ -159,7 +159,7 @@ if (pickupItem != null) pickupItem.isTaken = false;
     public void takeDamage(int damage)
     {
         //play ouch sound
-        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 0.2f);
+        SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 0.15f);
 
         currentHealth -= damage;
         if (currentHealth <= 0)
