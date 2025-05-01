@@ -6,12 +6,17 @@ using System.Collections;
 public class Player_Status : MonoBehaviour
 {
     [SerializeField] private GameObject grinchCanvas;
+    [SerializeField] private GameObject healthbarPrefab;
     private TextMeshProUGUI rageModeText;
     private int rageStatus;
     private Gyroscope gyro;
     Vector3 rotationRate;
     private CharacterMovement movementScript;
     private bool canShowRageMessage;
+    private Healthbar healthbar;
+    private float maxHealth = 100f;
+    private float currentHealth;
+
     void Start()
     {
         movementScript = this.GetComponent<CharacterMovement>();
@@ -20,6 +25,18 @@ public class Player_Status : MonoBehaviour
         rageModeText = grinchCanvas.GetComponentInChildren<TextMeshProUGUI>();
         rageStatus = 0;
         canShowRageMessage = true;
+
+        // Initialize health
+        currentHealth = maxHealth;
+        GameManager.Instance.SetMaxHealth(maxHealth); // setup slider
+
+        // Create health bar
+        // GameObject hb = Instantiate(healthbarPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+        // hb.transform.SetParent(transform);
+        // healthbar = hb.GetComponent<Healthbar>();
+        // Canvas canvas = hb.GetComponent<Canvas>();
+        // if (canvas != null) canvas.worldCamera = Camera.main;
+        // healthbar.UpdateHealthBar(maxHealth, currentHealth);
     }
     void Update()
     {
@@ -113,5 +130,27 @@ public class Player_Status : MonoBehaviour
     private void HideGrinchCanvas()
     {
         grinchCanvas.SetActive(false);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        GameManager.Instance.UpdateHealth(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player died!");
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collided with: " + collision.gameObject.name);
+        
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(10f);
+        }
     }
 }
