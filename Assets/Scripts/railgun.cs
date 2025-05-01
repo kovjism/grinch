@@ -16,6 +16,7 @@ public class railgun : gun
         recoilSpeed = 50f;
         resetSpeed = 5f;
         recoilDistance = 0.5f;
+        maxDistance = 200f;
         originalRotation = transform.localRotation;
         laser.enabled = false;
     }

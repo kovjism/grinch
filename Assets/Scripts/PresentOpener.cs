@@ -17,7 +17,7 @@ public class PresentOpener : MonoBehaviour
 
     public void Open()
     {
-        SoundFXManager.instance.PlaySoundFXClip(giftSoundClip, transform, 0.2f);
+        SoundFXManager.instance.PlaySoundFXClip(giftSoundClip, transform, 0.4f);
 
         if (isOpened) return;
 
