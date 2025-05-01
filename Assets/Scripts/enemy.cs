@@ -79,6 +79,15 @@ public class enemy : MonoBehaviour
                     PickUpItem(targetItem);
                 }
             }
+            else
+            {
+                // No gifts left, attack the player
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (player != null)
+                {
+                    agent.SetDestination(player.transform.position);
+                }
+            }
         }
         else
         {
