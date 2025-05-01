@@ -28,14 +28,15 @@ public class Player_Status : MonoBehaviour
 
         // Initialize health
         currentHealth = maxHealth;
-        
+        GameManager.Instance.SetMaxHealth(maxHealth); // setup slider
+
         // Create health bar
-        GameObject hb = Instantiate(healthbarPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
-        hb.transform.SetParent(transform);
-        healthbar = hb.GetComponent<Healthbar>();
-        Canvas canvas = hb.GetComponent<Canvas>();
-        if (canvas != null) canvas.worldCamera = Camera.main;
-        healthbar.UpdateHealthBar(maxHealth, currentHealth);
+        // GameObject hb = Instantiate(healthbarPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+        // hb.transform.SetParent(transform);
+        // healthbar = hb.GetComponent<Healthbar>();
+        // Canvas canvas = hb.GetComponent<Canvas>();
+        // if (canvas != null) canvas.worldCamera = Camera.main;
+        // healthbar.UpdateHealthBar(maxHealth, currentHealth);
     }
     void Update()
     {
@@ -134,21 +135,22 @@ public class Player_Status : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        healthbar.UpdateHealthBar(maxHealth, currentHealth);
+        GameManager.Instance.UpdateHealth(currentHealth);
 
         if (currentHealth <= 0)
         {
-            // Handle player death
             Debug.Log("Player died!");
-            // You can add game over logic here
         }
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collided with: " + collision.gameObject.name);
+        
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(10f); // Deal 10 damage when hit by an enemy
+            TakeDamage(10f);
         }
     }
 }
