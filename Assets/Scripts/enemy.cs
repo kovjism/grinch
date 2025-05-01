@@ -50,23 +50,35 @@ public class enemy : MonoBehaviour
             return;
         } 
         if (!hasItem)
+{
+    // Check if the current targetItem is now taken
+    if (targetItem != null)
+    {
+        PickupItem pickupScript = targetItem.GetComponent<PickupItem>();
+        if (pickupScript == null || pickupScript.isTaken)
         {
-            if (targetItem == null)
-            {
-                targetItem = FindClosestPickup();
-            }
-
-            if (targetItem != null)
-            {
-                agent.SetDestination(targetItem.transform.position);
-
-                float distance = Vector3.Distance(transform.position, targetItem.transform.position);
-                if (distance < 2f)
-                {
-                    PickUpItem(targetItem);
-                }
-            }
+            targetItem = null; // Clear it so we can look for a new one
         }
+    }
+
+    // If no target or previous was taken, find a new one
+    if (targetItem == null)
+    {
+        targetItem = FindClosestPickup();
+    }
+
+    // If we found a valid target, go to it
+    if (targetItem != null)
+    {
+        agent.SetDestination(targetItem.transform.position);
+
+        float distance = Vector3.Distance(transform.position, targetItem.transform.position);
+        if (distance < 2f)
+        {
+            PickUpItem(targetItem);
+        }
+    }
+}
         else
         {
             agent.SetDestination(escapePoint.position);
@@ -79,36 +91,44 @@ public class enemy : MonoBehaviour
         }
     }
     GameObject FindClosestPickup()
+{
+    GameObject[] pickups = GameObject.FindGameObjectsWithTag(pickupTag);
+    GameObject closest = null;
+    float closestDistance = Mathf.Infinity;
+
+    foreach (GameObject obj in pickups)
     {
-        GameObject[] pickups = GameObject.FindGameObjectsWithTag(pickupTag);
-        GameObject closest = null;
-        float closestDistance = Mathf.Infinity;
+        PickupItem pickupItem = obj.GetComponent<PickupItem>();
+        if (pickupItem != null && pickupItem.isTaken) continue; // Skip already taken
 
-        foreach (GameObject obj in pickups)
+        float dist = Vector3.Distance(transform.position, obj.transform.position);
+        if (dist < closestDistance)
         {
-            float dist = Vector3.Distance(transform.position, obj.transform.position);
-            if (dist < closestDistance)
-            {
-                closest = obj;
-                closestDistance = dist;
-            }
+            closest = obj;
+            closestDistance = dist;
         }
-
-        return closest;
     }
+
+    return closest;
+}
+
 
     void PickUpItem(GameObject item)
-    {
-        carriedItem = item;
-        hasItem = true;
+{
+    carriedItem = item;
+    hasItem = true;
 
-        item.transform.SetParent(holdPoint);
-        item.transform.localPosition = Vector3.zero;
-        item.GetComponent<Collider>().enabled = false;
+    item.transform.SetParent(holdPoint);
+    item.transform.localPosition = Vector3.zero;
+    item.GetComponent<Collider>().enabled = false;
 
-        Rigidbody rb = item.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = true;
-    }
+    PickupItem pickupItem = item.GetComponent<PickupItem>();
+    if (pickupItem != null) pickupItem.isTaken = true; // mark as taken
+
+    Rigidbody rb = item.GetComponent<Rigidbody>();
+    if (rb != null) rb.isKinematic = true;
+}
+
 
     void Escape()
 {
@@ -118,7 +138,8 @@ public class enemy : MonoBehaviour
         // Drop the item near the enemy
         carriedItem.transform.SetParent(null); // Unset the holdPoint parent
         carriedItem.GetComponent<Collider>().enabled = true; // Re-enable the collider so other enemies can pick it up
-
+        PickupItem pickupItem = carriedItem.GetComponent<PickupItem>();
+if (pickupItem != null) pickupItem.isTaken = false;
         // If the item has a Rigidbody, let it fall to the ground
         Rigidbody rb = carriedItem.GetComponent<Rigidbody>();
         if (rb != null)
@@ -150,26 +171,27 @@ public class enemy : MonoBehaviour
         else {
             healthbar.UpdateHealthBar(maxHealth, currentHealth);
          }
-
+    }
 void DropItem()
 {
     if (carriedItem != null)
     {
-        // Unset the parent and re-enable the collider
-        carriedItem.transform.SetParent(null); // Remove from the holdPoint
-        carriedItem.GetComponent<Collider>().enabled = true; // Re-enable the collider for interactions
+        carriedItem.transform.SetParent(null);
+        carriedItem.GetComponent<Collider>().enabled = true;
 
-        // If the item has a Rigidbody, enable physics for it
+        PickupItem pickupItem = carriedItem.GetComponent<PickupItem>();
+        if (pickupItem != null) pickupItem.isTaken = false;
+
         Rigidbody rb = carriedItem.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.isKinematic = false; // Make the Rigidbody dynamic
-            rb.useGravity = true;   // Enable gravity for the item
+            rb.isKinematic = false;
+            rb.useGravity = true;
         }
 
-        // Position the item slightly above the ground to avoid clipping into the floor
-        carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z); // Adjust this value if needed
+        carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
     }
 }
-    }
+
+    
 }
