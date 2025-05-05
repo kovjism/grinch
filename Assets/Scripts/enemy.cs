@@ -17,10 +17,6 @@ public class enemy : MonoBehaviour
     private bool hasItem = false;
     private GameObject targetItem;
 
-    // player damage taken
-    private float damageCooldown = 1f; // Time in seconds between damage ticks
-    private float lastDamageTime = -999f;
-
     private NavMeshAgent agent;
     private menus menu;
     [SerializeField] private Healthbar healthbar;
@@ -212,37 +208,6 @@ public class enemy : MonoBehaviour
             carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player") && !hasItem)
-    //    {
-    //        Player_Status player = other.GetComponent<Player_Status>();
-    //        if (player != null)
-    //        {
-    //            player.TakeDamage(1); // Adjust damage as needed
-    //        }
-    //    }
-    //}
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player") && !hasItem)
-        {
-            if (Time.time - lastDamageTime >= damageCooldown)
-            {
-                Player_Status player = other.GetComponent<Player_Status>();
-                if (player != null)
-                {
-                    player.TakeDamage(1); // Damage value per tick
-                    lastDamageTime = Time.time;
-                }
-            }
-        }
-    }
-
-
-
-
 }
 
 public class GiftDestroyer : MonoBehaviour

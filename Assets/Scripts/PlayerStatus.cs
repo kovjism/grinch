@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class Player_Status : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class Player_Status : MonoBehaviour
     [SerializeField] private int maxHealth = 10;
     [SerializeField] private int currentHealth;
     [SerializeField] private Slider healthBarSlider;
+
+    // player damage taken
+    private float enemyDamageCooldown = 1f;
+    private float lastEnemyDamageTime = -999f;
 
 
     void Start()
@@ -152,5 +157,18 @@ public class Player_Status : MonoBehaviour
         if (damageSoundClip != null)
             SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 0.3f);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            if (Time.time - lastEnemyDamageTime >= enemyDamageCooldown)
+            {
+                TakeDamage(1); // Adjust damage as needed
+                lastEnemyDamageTime = Time.time;
+            }
+        }
+    }
+
 
 }
