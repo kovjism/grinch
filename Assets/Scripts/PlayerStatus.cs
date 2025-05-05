@@ -25,7 +25,7 @@ public class Player_Status : MonoBehaviour
     [SerializeField] private Slider healthBarSlider;
 
     // player damage taken
-    private float enemyDamageCooldown = 0.5f;
+    private float enemyDamageCooldown = 0.2f;
     private float lastEnemyDamageTime = -999f;
 
     public GameObject gameOverPanel;
@@ -188,13 +188,13 @@ public class Player_Status : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            //if (Time.time - lastEnemyDamageTime >= enemyDamageCooldown)
-            //{
-            //    TakeDamage(1); // Adjust damage as needed
-            //    lastEnemyDamageTime = Time.time;
-            //}
-            TakeDamage(1); // Adjust damage as needed
-            lastEnemyDamageTime = Time.time;
+            if (Time.time - lastEnemyDamageTime >= enemyDamageCooldown)
+            {
+                TakeDamage(5); // Adjust damage as needed
+                lastEnemyDamageTime = Time.time;
+            }
+            //TakeDamage(1); // Adjust damage as needed
+            //lastEnemyDamageTime = Time.time;
         }
     }
 
