@@ -210,7 +210,31 @@ public class enemy : MonoBehaviour
         }
     }
 
-    
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player") && !hasItem)
+    //    {
+    //        Player_Status player = collision.gameObject.GetComponent<Player_Status>();
+    //        if (player != null)
+    //        {
+    //            player.TakeDamage(1); // Damage value can be adjusted
+    //        }
+    //    }
+    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !hasItem)
+        {
+            Player_Status player = other.GetComponent<Player_Status>();
+            if (player != null)
+            {
+                player.TakeDamage(1); // Adjust damage as needed
+            }
+        }
+    }
+
+
+
 }
 
 public class GiftDestroyer : MonoBehaviour
