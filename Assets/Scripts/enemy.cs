@@ -16,7 +16,6 @@ public class enemy : MonoBehaviour
     private GameObject carriedItem;
     private bool hasItem = false;
     private GameObject targetItem;
-    
 
     private NavMeshAgent agent;
     private menus menu;
@@ -209,8 +208,6 @@ public class enemy : MonoBehaviour
             carriedItem.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         }
     }
-
-    
 }
 
 public class GiftDestroyer : MonoBehaviour

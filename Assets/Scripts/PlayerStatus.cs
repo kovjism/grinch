@@ -2,20 +2,30 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class Player_Status : MonoBehaviour
 {
     [SerializeField] private GameObject grinchCanvas;
-    [SerializeField] private GameObject healthbarPrefab;
     private TextMeshProUGUI rageModeText;
     private int rageStatus;
     private Gyroscope gyro;
     Vector3 rotationRate;
     private CharacterMovement movementScript;
     private bool canShowRageMessage;
-    private Healthbar healthbar;
-    private float maxHealth = 100f;
-    private float currentHealth;
+
+    // take player damage
+    [SerializeField] private int playerHealth = 10; // Set as needed
+    [SerializeField] private AudioClip damageSoundClip;
+    [SerializeField] private int maxHealth = 10;
+    [SerializeField] private int currentHealth;
+    [SerializeField] private Slider healthBarSlider;
+
+    // player damage taken
+    private float enemyDamageCooldown = 1f;
+    private float lastEnemyDamageTime = -999f;
+
 
     void Start()
     {
@@ -26,17 +36,15 @@ public class Player_Status : MonoBehaviour
         rageStatus = 0;
         canShowRageMessage = true;
 
-        // Initialize health
+        // player health --------------
         currentHealth = maxHealth;
-        GameManager.Instance.SetMaxHealth(maxHealth); // setup slider
 
-        // Create health bar
-        // GameObject hb = Instantiate(healthbarPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
-        // hb.transform.SetParent(transform);
-        // healthbar = hb.GetComponent<Healthbar>();
-        // Canvas canvas = hb.GetComponent<Canvas>();
-        // if (canvas != null) canvas.worldCamera = Camera.main;
-        // healthbar.UpdateHealthBar(maxHealth, currentHealth);
+        if (healthBarSlider != null)
+        {
+            healthBarSlider.maxValue = maxHealth;
+            healthBarSlider.value = currentHealth;
+        }
+
     }
     void Update()
     {
@@ -132,25 +140,35 @@ public class Player_Status : MonoBehaviour
         grinchCanvas.SetActive(false);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        GameManager.Instance.UpdateHealth(currentHealth);
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (healthBarSlider != null)
+            healthBarSlider.value = currentHealth;
 
         if (currentHealth <= 0)
         {
-            Debug.Log("Player died!");
+            Debug.Log("Player has died!");
+            // You can call GameOverPanel.SetActive(true) or similar here
         }
+
+        if (damageSoundClip != null)
+            SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 0.3f);
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
-        Debug.Log("Collided with: " + collision.gameObject.name);
-        
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            TakeDamage(10f);
+            if (Time.time - lastEnemyDamageTime >= enemyDamageCooldown)
+            {
+                TakeDamage(1); // Adjust damage as needed
+                lastEnemyDamageTime = Time.time;
+            }
         }
     }
+
+
 }
