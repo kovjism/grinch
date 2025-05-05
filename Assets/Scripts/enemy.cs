@@ -16,7 +16,10 @@ public class enemy : MonoBehaviour
     private GameObject carriedItem;
     private bool hasItem = false;
     private GameObject targetItem;
-    
+
+    // player damage taken
+    private float damageCooldown = 1f; // Time in seconds between damage ticks
+    private float lastDamageTime = -999f;
 
     private NavMeshAgent agent;
     private menus menu;
@@ -210,28 +213,33 @@ public class enemy : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter(Collision collision)
+    //private void OnTriggerEnter(Collider other)
     //{
-    //    if (collision.gameObject.CompareTag("Player") && !hasItem)
+    //    if (other.CompareTag("Player") && !hasItem)
     //    {
-    //        Player_Status player = collision.gameObject.GetComponent<Player_Status>();
+    //        Player_Status player = other.GetComponent<Player_Status>();
     //        if (player != null)
     //        {
-    //            player.TakeDamage(1); // Damage value can be adjusted
+    //            player.TakeDamage(1); // Adjust damage as needed
     //        }
     //    }
     //}
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && !hasItem)
         {
-            Player_Status player = other.GetComponent<Player_Status>();
-            if (player != null)
+            if (Time.time - lastDamageTime >= damageCooldown)
             {
-                player.TakeDamage(1); // Adjust damage as needed
+                Player_Status player = other.GetComponent<Player_Status>();
+                if (player != null)
+                {
+                    player.TakeDamage(1); // Damage value per tick
+                    lastDamageTime = Time.time;
+                }
             }
         }
     }
+
 
 
 
