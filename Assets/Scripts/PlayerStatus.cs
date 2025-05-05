@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+
 
 public class Player_Status : MonoBehaviour
 {
@@ -23,8 +25,10 @@ public class Player_Status : MonoBehaviour
     [SerializeField] private Slider healthBarSlider;
 
     // player damage taken
-    private float enemyDamageCooldown = 1f;
+    private float enemyDamageCooldown = 0.2f;
     private float lastEnemyDamageTime = -999f;
+
+    public GameObject gameOverPanel;
 
 
     void Start()
@@ -44,6 +48,8 @@ public class Player_Status : MonoBehaviour
             healthBarSlider.maxValue = maxHealth;
             healthBarSlider.value = currentHealth;
         }
+
+        gameOverPanel.SetActive(false);
 
     }
     void Update()
@@ -151,12 +157,32 @@ public class Player_Status : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Player has died!");
+            Die();
             // You can call GameOverPanel.SetActive(true) or similar here
         }
 
         if (damageSoundClip != null)
             SoundFXManager.instance.PlaySoundFXClip(damageSoundClip, transform, 0.3f);
     }
+    void Die()
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f; // pause the game
+    }
+
+    public void RestartGame()
+    {
+        ResumeTime(); // if you paused time
+        SceneManager.LoadScene("startingMenu"); // Use the exact scene name
+    }
+
+
+    // maybe call this to resume time when restarting
+    public void ResumeTime()
+    {
+        Time.timeScale = 1f;
+    }
+
 
     private void OnTriggerStay(Collider other)
     {
@@ -164,9 +190,11 @@ public class Player_Status : MonoBehaviour
         {
             if (Time.time - lastEnemyDamageTime >= enemyDamageCooldown)
             {
-                TakeDamage(1); // Adjust damage as needed
+                TakeDamage(5); // Adjust damage as needed
                 lastEnemyDamageTime = Time.time;
             }
+            //TakeDamage(1); // Adjust damage as needed
+            //lastEnemyDamageTime = Time.time;
         }
     }
 
