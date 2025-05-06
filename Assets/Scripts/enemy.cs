@@ -228,6 +228,20 @@ public class GiftDestroyer : MonoBehaviour
         {
             Destroy(giftToDestroy);
         }
+
+        // Now check how many pickups are left
+        GameObject[] remainingPickups = GameObject.FindGameObjectsWithTag("Pickup");
+        if (remainingPickups.Length == 1) // the one we just destroyed
+        {
+            // Find the player and show the Game Over panel
+            Player_Status player = FindObjectOfType<Player_Status>();
+            if (player != null && player.gameOverPanel != null)
+            {
+                player.gameOverPanel.SetActive(true);
+                Time.timeScale = 0f; // pause the game
+            }
+        }
+
         Destroy(gameObject); // Destroy this helper object as well
     }
 }
