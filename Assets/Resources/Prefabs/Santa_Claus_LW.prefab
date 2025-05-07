@@ -537,6 +537,7 @@ MonoBehaviour:
   maxHealth: 20
   damageSoundClip: {fileID: 8300000, guid: 42612f5c9556cbe4e94b356ecc572917, type: 3}
   healthbarPrefab: {fileID: 4960448075451345428, guid: d5ef79da87766431d93b7a2b4cdebed1, type: 3}
+  enemyType: Santa
   pickupTag: Pickup
   holdPoint: {fileID: 1001519769366657895}
   healthbar: {fileID: 218946189749363621, guid: d5ef79da87766431d93b7a2b4cdebed1, type: 3}

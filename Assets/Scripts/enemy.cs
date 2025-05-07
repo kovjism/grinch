@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class enemy : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class enemy : MonoBehaviour
     private float currentHealth;
     [SerializeField] private AudioClip damageSoundClip;
     [SerializeField] private GameObject healthbarPrefab;
-
+    [SerializeField] private string enemyType;
     [SerializeField] private string pickupTag = "Pickup";
     [SerializeField] private Transform holdPoint;
     private Transform escapePoint;
@@ -51,6 +52,16 @@ public class enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Reindeer attack player logic
+        if (enemyType == "Reindeer")
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                agent.SetDestination(player.transform.position);
+            }
+            return;
+        }
         if (menu.open)
         {
             agent.ResetPath();

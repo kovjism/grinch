@@ -23597,6 +23597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 7246167075743632778, guid: bfd9c180df633ce48a29aad613a9807e, type: 3}
+  reindeer: {fileID: 2068719944209936564, guid: c6eda028054c0c745b7eb38e5c0c2612, type: 3}
   santaEnemy: {fileID: 1484814475079760204, guid: bf6d43206f0cc435d819daf7245d2206, type: 3}
   player: {fileID: 873806988}
   numEnemies: 8

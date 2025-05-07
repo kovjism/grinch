@@ -5,6 +5,7 @@ using TMPro;
 public class spawner : MonoBehaviour
 {
     public GameObject enemy;
+    public GameObject reindeer;
     public GameObject santaEnemy;
 
     public Transform player;
@@ -13,7 +14,7 @@ public class spawner : MonoBehaviour
 
     public float timeBetweenWaves = 3f;
 
-    private int currentWave = 1;
+    private int currentWave = 3;
     private List<GameObject> activeEnemies = new List<GameObject>();
     private bool waveInProgress = false;
     private float waveTimer = 0f;
@@ -98,7 +99,22 @@ public class spawner : MonoBehaviour
         activeEnemies.Clear();
         waveInProgress = true;
 
-
+        if (currentWave >= 3)
+        {
+            int numReindeer = currentWave - 2; //reindeer difficulty scaling
+            count -= numReindeer;
+            //spawn currentWave - 2 reindeers
+            for (int i = 0; i < numReindeer; i++)
+            {
+                float spawnX = Random.Range(-20f, 20f);
+                float spawnZ = Random.Range(100f, 127f);
+                float spawnY = player.position.y;
+                
+                Vector3 spawnPosition = new Vector3(spawnX, spawnY, spawnZ);
+                GameObject newEnemy = Instantiate(reindeer, spawnPosition, Quaternion.identity);
+                activeEnemies.Add(newEnemy);
+            }
+        }
         for (int i = 0; i < count; i++)
         {
             float spawnX = Random.Range(-20f, 20f);
@@ -109,14 +125,18 @@ public class spawner : MonoBehaviour
             GameObject newEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
             activeEnemies.Add(newEnemy);
         }
-        float santaX = Random.Range(-20f, 20f);
-        float santaZ = Random.Range(100f, 127f);
-        float santaY = player.position.y;
+        //Santa spawn for last wave
+        if (currentWave == 5)
+        {
+            StartCoroutine(ShowRewardMessage("Santa is coming...", 3f));
+            float santaX = Random.Range(-20f, 20f);
+            float santaZ = Random.Range(100f, 127f);
+            float santaY = player.position.y;
 
-        Vector3 santaPosition = new Vector3(santaX, santaY, santaZ);
-        GameObject santa = Instantiate(santaEnemy, santaPosition, Quaternion.identity);
-        activeEnemies.Add(santa);
-    
+            Vector3 santaPosition = new Vector3(santaX, santaY, santaZ);
+            GameObject santa = Instantiate(santaEnemy, santaPosition, Quaternion.identity);
+            activeEnemies.Add(santa);
+        }
     }
     void SpawnReward()
     {
