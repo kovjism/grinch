@@ -6,13 +6,15 @@ public class ThrowableDamage : MonoBehaviour
     public float explosionForce = 10f;
     public int damage = 10;
     public LayerMask groundLayer;
+    public LayerMask enemyLayer;
     //private bool hasHit = false;
     [SerializeField] private AudioClip explodeSoundClip;
+    [SerializeField] private GameObject explosionEffect;
 
     void OnCollisionEnter(Collision collision)
     {
         //check if collision with ground
-        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
+        if ((((1 << collision.gameObject.layer) & groundLayer) != 0) || (((1 << collision.gameObject.layer) & enemyLayer) != 0))
         {
             SoundFXManager.instance.PlaySoundFXClip(explodeSoundClip, transform, 0.6f);
             Explode();
@@ -33,6 +35,10 @@ public class ThrowableDamage : MonoBehaviour
     private void Explode()
     {
         //spawn visual explosion
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
 
         //Add explosion logic
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);

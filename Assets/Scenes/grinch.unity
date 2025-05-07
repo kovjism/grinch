@@ -12363,7 +12363,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
+  explosionEffect: {fileID: 5162910912013668194, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
 --- !u!1 &900102432
 GameObject:
   m_ObjectHideFlags: 0
@@ -13487,7 +13491,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
+  explosionEffect: {fileID: 5162910912013668194, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
 --- !u!114 &945869703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13955,7 +13963,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
+  explosionEffect: {fileID: 5162910912013668194, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
 --- !u!114 &997185043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22591,7 +22603,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
+  explosionEffect: {fileID: 5162910912013668194, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
 --- !u!114 &1711734787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24398,7 +24414,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
+  explosionEffect: {fileID: 5162910912013668194, guid: cf82839c411151342a7b2337bda9fb34, type: 3}
 --- !u!114 &1863625754
 MonoBehaviour:
   m_ObjectHideFlags: 0
