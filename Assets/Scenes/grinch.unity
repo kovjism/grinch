@@ -15488,7 +15488,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -23114,6 +23114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 7246167075743632778, guid: bfd9c180df633ce48a29aad613a9807e, type: 3}
+  santaEnemy: {fileID: 1484814475079760204, guid: bf6d43206f0cc435d819daf7245d2206, type: 3}
   player: {fileID: 873806988}
   numEnemies: 8
   timeBetweenWaves: 3

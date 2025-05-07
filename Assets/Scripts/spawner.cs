@@ -5,6 +5,8 @@ using TMPro;
 public class spawner : MonoBehaviour
 {
     public GameObject enemy;
+    public GameObject santaEnemy;
+
     public Transform player;
     public int numEnemies;
     private Transform cameraTransform;
@@ -95,6 +97,14 @@ public class spawner : MonoBehaviour
         GameObject newEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
         activeEnemies.Add(newEnemy);
     }
+        float santaX = Random.Range(-20f, 20f);
+        float santaZ = Random.Range(100f, 127f);
+        float santaY = player.position.y;
+
+        Vector3 santaPosition = new Vector3(santaX, santaY, santaZ);
+        GameObject santa = Instantiate(santaEnemy, santaPosition, Quaternion.identity);
+        activeEnemies.Add(santa);
+    
     }
     void SpawnReward()
 {
