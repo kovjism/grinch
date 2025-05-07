@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e6c2666a1cf0a43b8ccbe74fdbb471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 20
   damageSoundClip: {fileID: 8300000, guid: 42612f5c9556cbe4e94b356ecc572917, type: 3}
   healthbarPrefab: {fileID: 4960448075451345428, guid: d5ef79da87766431d93b7a2b4cdebed1, type: 3}
   pickupTag: Pickup
@@ -563,7 +563,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -586,10 +586,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.7
+  m_Height: 2.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.3, z: 0}
 --- !u!1 &1802698419268070568
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,8 +27,16 @@ public class enemy : MonoBehaviour
 
         currentHealth = maxHealth;
         agent = GetComponent<NavMeshAgent>();
-        
-        GameObject hb = Instantiate(healthbarPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+        GameObject hb;
+        if (gameObject.name != "Santa_Claus_LW(Clone)")
+        {
+            hb = Instantiate(healthbarPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+        } else
+        {
+            hb = Instantiate(healthbarPrefab, transform.position + Vector3.up * 7f, Quaternion.identity);
+            hb.transform.localScale = new Vector3(0.0009f, 0.0003f, 1f);
+        }
+
         hb.transform.SetParent(transform); 
         healthbar = hb.GetComponent<Healthbar>();
 
