@@ -99,9 +99,9 @@ public class spawner : MonoBehaviour
         activeEnemies.Clear();
         waveInProgress = true;
 
-        if (currentWave >= 3)
+        if (currentWave >= 2)
         {
-            int numReindeer = currentWave - 2; //reindeer difficulty scaling
+            int numReindeer = currentWave - 1; //reindeer difficulty scaling
             count -= numReindeer;
             //spawn currentWave - 2 reindeers
             for (int i = 0; i < numReindeer; i++)
