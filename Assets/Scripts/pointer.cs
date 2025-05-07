@@ -177,7 +177,7 @@ public class pointer : MonoBehaviour
                                 ThrowableDamage dmgScript = throwableObject.GetComponent<ThrowableDamage>();
                                 if (dmgScript != null)
                                 {
-                                    dmgScript.ResetHit();
+                                    //dmgScript.ResetHit();
                                     dmgScript.SetTransparency(true);  // Make transparent when picked up
                                 }
 

@@ -2,34 +2,63 @@ using UnityEngine;
 
 public class ThrowableDamage : MonoBehaviour
 {
-    public int damage = 1;
-
-    private bool hasHit = false;
+    public float explosionRadius = 5f;
+    public float explosionForce = 10f;
+    public int damage = 10;
+    public LayerMask groundLayer;
+    //private bool hasHit = false;
+    [SerializeField] private AudioClip explodeSoundClip;
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.relativeVelocity.magnitude > 1f)
+        //check if collision with ground
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
         {
-            if (!hasHit && collision.gameObject.CompareTag("Enemy"))
+            SoundFXManager.instance.PlaySoundFXClip(explodeSoundClip, transform, 0.6f);
+            Explode();
+        }
+        //if (collision.relativeVelocity.magnitude > 1f)
+        //{
+        //    if (!hasHit && collision.gameObject.CompareTag("Enemy"))
+        //    {
+        //        enemy enemyScript = collision.gameObject.GetComponent<enemy>();
+        //        if (enemyScript != null)
+        //        {
+        //            enemyScript.takeDamage(damage);
+        //        }
+        //        hasHit = true;
+        //    }
+        //}        
+    }
+    private void Explode()
+    {
+        //spawn visual explosion
+
+        //Add explosion logic
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Enemy"))
             {
-                enemy enemyScript = collision.gameObject.GetComponent<enemy>();
-                if (enemyScript != null)
-                {
-                    enemyScript.takeDamage(damage);
-                }
-                hasHit = true;
+                // Apply damage to the enemy
+                collider.GetComponent<enemy>().takeDamage(damage);
             }
-        }        
+
+            // Apply force to rigidbody if needed (for physics-based reactions)
+            Rigidbody rb = collider.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            }
+        }
+        //destroy
+        Destroy(gameObject);
     }
 
     public void SetDamage(int dmg)
     {
         damage = dmg;
-    }
-
-    public void ResetHit()
-    {
-        hasHit = false;
     }
 
     public void SetTransparency(bool isTransparent)

@@ -12357,7 +12357,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a269612ec3ec2498d021c9ec9b3364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  explosionRadius: 5
+  explosionForce: 10
+  damage: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
 --- !u!1 &900102432
 GameObject:
   m_ObjectHideFlags: 0
@@ -13475,7 +13481,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a269612ec3ec2498d021c9ec9b3364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  explosionRadius: 5
+  explosionForce: 10
+  damage: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
 --- !u!114 &945869703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13937,7 +13949,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a269612ec3ec2498d021c9ec9b3364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  explosionRadius: 5
+  explosionForce: 10
+  damage: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
 --- !u!114 &997185043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22567,7 +22585,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a269612ec3ec2498d021c9ec9b3364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  explosionRadius: 5
+  explosionForce: 10
+  damage: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
 --- !u!114 &1711734787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24368,7 +24392,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a269612ec3ec2498d021c9ec9b3364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  explosionRadius: 5
+  explosionForce: 10
+  damage: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  explodeSoundClip: {fileID: 8300000, guid: 4dc2fcc2aa6f3de469f363804ed331b2, type: 3}
 --- !u!114 &1863625754
 MonoBehaviour:
   m_ObjectHideFlags: 0

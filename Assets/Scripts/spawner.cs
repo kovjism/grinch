@@ -14,7 +14,7 @@ public class spawner : MonoBehaviour
 
     public float timeBetweenWaves = 3f;
 
-    private int currentWave = 3;
+    private int currentWave = 1;
     private List<GameObject> activeEnemies = new List<GameObject>();
     private bool waveInProgress = false;
     private float waveTimer = 0f;
