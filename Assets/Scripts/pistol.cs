@@ -12,7 +12,7 @@ public class pistol : gun
         damage = 3;
         recoilAngle = 5f;
         recoilSpeed = 50f;
-        resetSpeed = 5f;
+        resetSpeed = 10f;
         recoilDistance = 0.1f;
         originalRotation = transform.localRotation;
     }

@@ -87,7 +87,7 @@ public class spawner : MonoBehaviour
 
     for (int i = 0; i < count; i++)
     {
-        float spawnX = Random.Range(-42f, 42f);
+        float spawnX = Random.Range(-20f, 20f);
         float spawnZ = Random.Range(100f, 127f);
         float spawnY = player.position.y;
 
