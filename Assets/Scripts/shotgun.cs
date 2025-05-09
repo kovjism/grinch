@@ -52,6 +52,9 @@ public class shotgun : gun
     public override void Equip()
     {
         transform.localRotation = originalRotation;
+
+        transform.localPosition = new Vector3(0.4f, -0.4f, 0.6f); // ← tweak these to fit your view
+
     }
 }
 
