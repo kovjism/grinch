@@ -12,7 +12,7 @@ public class spawner : MonoBehaviour
     public int numEnemies;
     private Transform cameraTransform;
 
-    public float timeBetweenWaves = 3f;
+    public float timeBetweenWaves = 5f;
 
     private int currentWave = 1;
     private List<GameObject> activeEnemies = new List<GameObject>();
@@ -33,19 +33,7 @@ public class spawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // circle
-        //for (int i = 0; i < numEnemies; i++)
-        //{
-        //    float randomAngle = Random.Range(0f, 360f); // Random angle in degrees
-        //    float randomDistance = Random.Range(minDistance, maxDistance);
-
-        //    // Convert polar coordinates to Cartesian
-        //    float spawnX = player.position.x + randomDistance * Mathf.Cos(randomAngle * Mathf.Deg2Rad);
-        //    float spawnZ = player.position.z + randomDistance * Mathf.Sin(randomAngle * Mathf.Deg2Rad);
-
-        //    Vector3 spawnPosition = new Vector3(spawnX, player.position.y, spawnZ);
-        //    Instantiate(enemy, spawnPosition, Quaternion.identity);
-        //}
+       
         cameraTransform = Camera.main.transform;
         SpawnWave(numEnemies);
         victory.SetActive(false);
@@ -99,9 +87,9 @@ public class spawner : MonoBehaviour
         activeEnemies.Clear();
         waveInProgress = true;
 
-        if (currentWave >= 2)
+        if (currentWave >= 3)
         {
-            int numReindeer = currentWave - 1; //reindeer difficulty scaling
+            int numReindeer = currentWave - 2; //reindeer difficulty scaling
             count -= numReindeer;
             //spawn currentWave - 2 reindeers
             for (int i = 0; i < numReindeer; i++)

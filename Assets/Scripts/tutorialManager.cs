@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
-using static UnityEditorInternal.ReorderableList;
+//using static UnityEditorInternal.ReorderableList;
 
 public class tutorialManager : MonoBehaviour
 {

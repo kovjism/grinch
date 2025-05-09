@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e6c2666a1cf0a43b8ccbe74fdbb471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 25
+  maxHealth: 35
   damageSoundClip: {fileID: 8300000, guid: 42612f5c9556cbe4e94b356ecc572917, type: 3}
   healthbarPrefab: {fileID: 4960448075451345428, guid: d5ef79da87766431d93b7a2b4cdebed1, type: 3}
   enemyType: Santa
