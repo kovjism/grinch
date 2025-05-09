@@ -13,13 +13,10 @@ GitHub Repository: https://github.com/alexwangdev/grinch-vr-shooter
 
 Advanced Requirements
 ------------------------------------------------------------
-1. Enemy AI
 
-Functionality: Spawns waves of Grinch enemies that get harder over time. After each wave, a reward present appears with randomized items such as health or score boosts.
+1. Intelligent Enemies - Functionality: Spawns waves of Grinch enemies that get harder over time. After each wave, a reward present appears with randomized items such as health or score boosts.
 Reason: Adds structured progression and motivation to survive longer, improving replayability.
-3. Mobile Sensors
-
-Functionality: Health bar and ammo counter are displayed in world space and follow the player's weapon for an immersive, intuitive HUD.
+2. Mobile Sensors - Functionality: Health bar and ammo counter are displayed in world space and follow the player's weapon for an immersive, intuitive HUD.
 Reason: Chosen to maintain immersion in VR by avoiding static screen overlays.
 
 Interaction Techniques 
