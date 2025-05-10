@@ -70,9 +70,17 @@ public class spawner : MonoBehaviour
             if (waveTimer <= 0f)
             {
                 currentWave++;
-                int enemiesToSpawn = numEnemies + currentWave; // optional difficulty scaling
-                SpawnWave(enemiesToSpawn);
-                waveText.text = $"Wave {currentWave}/5";
+
+                if (currentWave <= 5)
+                {
+                    int enemiesToSpawn = numEnemies + currentWave; // optional difficulty scaling
+                    SpawnWave(enemiesToSpawn);
+                    waveText.text = $"Wave {currentWave}/5";
+                }
+                else
+                {
+                    waveText.text = "Completed!";
+                }
 
             }
         }

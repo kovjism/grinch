@@ -49,7 +49,7 @@ public class pointer : MonoBehaviour
         distance = 50f;
         grabAnchor = new GameObject("GrabAnchor").transform;
         grabAnchor.SetParent(transform); // attach to pointer (camera probably)
-        grabAnchor.localPosition = new Vector3(0f, 0f, 6f); // position 2m in front
+        grabAnchor.localPosition = new Vector3(0f, 0f, 10f); // position 2m in front
 
         shootScript = guns.GetComponent<shoot>();
         // Get reference to the shoot script on the guns GameObject
@@ -229,7 +229,7 @@ public class pointer : MonoBehaviour
                     lastObject = outline;
                 }
 
-                // === Grabbing Logic ===
+                // -- Grabbing Interaction --
                 if (Input.GetButtonDown("js2") || Input.GetKeyDown(KeyCode.E))
                 {
                     if (heldObject == null)
