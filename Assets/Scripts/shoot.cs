@@ -42,7 +42,7 @@ public class shoot : MonoBehaviour
         rotationRate = gyro.rotationRate;
         float fillAmount = Mathf.Clamp01(1 - ((guns[currentGun].nextFire - Time.time) / guns[currentGun].fireRate));
         ammoBar.value = fillAmount;
-        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js7"))
+        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("js7") || Input.GetButtonDown("js0"))
         {
             guns[currentGun].Shoot();   
         }

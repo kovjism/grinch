@@ -43,6 +43,15 @@ public class menus : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(firstButton);
         }
+        //alternative submit for default controller
+        //if (Input.GetButtonDown("js2"))
+        //{
+        //    GameObject current = EventSystem.current.currentSelectedGameObject;
+        //    if (current != null)
+        //    {
+        //        ExecuteEvents.Execute(current, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
+        //    }
+        //}
     }
     public void CloseMenu()
     {

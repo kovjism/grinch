@@ -13,6 +13,8 @@ public class Player_Status : MonoBehaviour
     [SerializeField] private GameObject grinchCanvas;
     private TextMeshProUGUI rageModeText;
     private int rageStatus;
+    private float originalSpeed;
+    public Image rageOverlay;
     private Gyroscope gyro;
     Vector3 rotationRate;
     private CharacterMovement movementScript;
@@ -56,89 +58,80 @@ public class Player_Status : MonoBehaviour
     }
     void Update()
     {
-        rotationRate = gyro.rotationRate;
+        Quaternion deviceRotation = gyro.attitude;
+        Vector3 euler = ConvertGyroRotationToUnity(deviceRotation);
+        float pitch = euler.x;
+
+        // Normalize to 0–180, where 0 is forward and ~90 is looking up
+        if (pitch > 180f) pitch -= 360f;
+        bool isLookingUp = pitch < -80f;
+
+        //add cooldown
+
+        if (isLookingUp && Input.GetButtonDown("js2"))
+        {
+            rageStatus = 1;
+        }
         CheckForRage(rageStatus);
     }
-    private void CheckForRage(int currentRage)
+
+    Vector3 ConvertGyroRotationToUnity(Quaternion q)
     {
-        //check for right tilt phone movement
+        // Converts right-handed to Unity's left-handed coordinate system
+        return new Quaternion(q.x, q.y, -q.z, -q.w).eulerAngles;
+    }
+
+private void CheckForRage(int currentRage)
+    {
+        //check for upward tilt phone movement
         if (currentRage == 0)
         {
-            rageModeText.text = "Rage Mode is Ready!\n(Tilt Right to Start)";
+            rageModeText.text = "Rage Mode is Ready!\n(Tilt Up and Press Interact)";
             grinchCanvas.SetActive(true);
-            //Invoke("HideGrinchCanvas", 2);
+            Invoke("HideGrinchCanvas", 2);
 
-            if (rotationRate.y > 0.5f)
+            if (canShowRageMessage)
             {
-                rageStatus++;
-                return;
+                //add cooldown
+                canShowRageMessage = false;
+                Invoke("ResetRageMessage", 5f);
             }
-            //if (canShowRageMessage)
-            //{
-            //    //add cooldown
-            //    canShowRageMessage = false;
-            //    Invoke("ResetRageMessage", 5f);
-            //}
         }
-        //check for left tilt phone movement
         else if (currentRage == 1)
-        {
-            rageModeText.text = "Rage Mode Started...\n(Tilt Left to Continue)";
-            grinchCanvas.SetActive(true);
-            //Invoke("HideGrinchCanvas", 2);
-
-            if (rotationRate.y < -0.5f)
-            {
-                rageStatus++;
-                return;
-            }
-
-            //add cooldown
-            //canShowRageMessage = false;
-            //Invoke("ResetRageMessage", 5f);
-        }
-        //check for up tilt phone movement
-        else if (currentRage == 2)
-        {
-            rageModeText.text = "Rage Mode Charging...\n(Tilt Up to Activate)";
-            grinchCanvas.SetActive(true);
-            //Invoke("HideGrinchCanvas", 2);
-
-            if (rotationRate.x < -0.5f)
-            {
-                rageStatus++;
-                return;
-            }
-
-            //add cooldown
-            //canShowRageMessage = false;
-            //Invoke("ResetRageMessage", 5f);
-        }
-        else if (currentRage == 3)
         {
             rageModeText.text = "Rage Mode Activated!";
             grinchCanvas.SetActive(true);
             ActivateRage();
-            //rageStatus = 0;
+            rageStatus = 0;
         }
     }
     private void ActivateRage()
     {
+        //modify Grinch canvas
+
         //start 5 second countdown
-        //StartCoroutine(RageCoroutine());
-        movementScript.speed = 18f;
+        StartCoroutine(RageCoroutine());
+        HideGrinchCanvas();
+        movementScript.speed = originalSpeed;
     }
-    //private IEnumerator RageCoroutine()
-    //{
-    //    float originalSpeed = movementScript.speed;
-    //    movementScript.speed = 18f;
-
-    //    //// Wait during rage
-    //    //yield return new WaitForSeconds(5f);
-
-    //    //HideGrinchCanvas();
-    //    //movementScript.speed = originalSpeed;
-    //}
+    private IEnumerator RageCoroutine()
+    {
+        SetOverlayAlpha(0.5f);
+        originalSpeed = movementScript.speed;
+        movementScript.speed = 18f;
+        SetOverlayAlpha(0f);
+        // Wait during rage
+        yield return new WaitForSeconds(5f);
+    }
+    private void SetOverlayAlpha(float alpha)
+    {
+        if (rageOverlay != null)
+        {
+            Color c = rageOverlay.color;
+            c.a = alpha;
+            rageOverlay.color = c;
+        }
+    }
     private void ResetRageMessage()
     {
         canShowRageMessage = true;
