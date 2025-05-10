@@ -107,7 +107,7 @@ public class shoot : MonoBehaviour
 
         // Reset transform to make sure it's in view
         newGun.transform.localPosition = new Vector3(0.4f, -0.2f, 1f);  // later change this to the EXACT position
-        newGun.transform.localRotation = Quaternion.identity;
+        newGun.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
 
         gun newGunComponent = newGun.GetComponent<gun>();
 

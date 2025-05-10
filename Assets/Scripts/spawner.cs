@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.EventSystems;
 public class spawner : MonoBehaviour
 {
     public GameObject enemy;
@@ -26,6 +27,7 @@ public class spawner : MonoBehaviour
 
     [SerializeField] private AudioClip victorySoundClip;
     public GameObject victory;
+    public GameObject winButton;
 
     //private float minDistance = 60f;
     //private float maxDistance = 70f;
@@ -80,6 +82,8 @@ public class spawner : MonoBehaviour
     {
         victory.SetActive(true);
         Time.timeScale = 0f; // pause the game
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(winButton);
     }
 
     void SpawnWave(int count)

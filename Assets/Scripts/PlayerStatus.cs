@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class Player_Status : MonoBehaviour
@@ -29,6 +30,7 @@ public class Player_Status : MonoBehaviour
     private float lastEnemyDamageTime = -999f;
 
     public GameObject gameOverPanel;
+    public GameObject loseButton;
 
 
     void Start()
@@ -168,6 +170,8 @@ public class Player_Status : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f; // pause the game
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(loseButton);
     }
 
     public void RestartGame()

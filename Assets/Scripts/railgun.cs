@@ -41,10 +41,9 @@ public class railgun : gun
     }
 
     public override void Equip()
-{
-    transform.localRotation = Quaternion.Euler(0f, 270f, 0f); // Rotate correctly
-    transform.localPosition = new Vector3(0.37f, -0.35f, 0.5f); // Optional: tweak for best view
-}
+    {
+        transform.localPosition = new Vector3(0.37f, -0.35f, 0.5f); // Optional: tweak for best view
+    }
 
     IEnumerator Laser()
     {

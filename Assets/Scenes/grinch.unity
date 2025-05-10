@@ -12028,6 +12028,7 @@ MonoBehaviour:
   currentHealth: 0
   healthBarSlider: {fileID: 873800702}
   gameOverPanel: {fileID: 320702890}
+  loseButton: {fileID: 1255635804}
 --- !u!136 &873806994
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17229,9 +17230,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.98823535, g: 0.68235296, b: 0.2509804, a: 1}
+    m_PressedColor: {r: 0.95294124, g: 0.5294118, b: 0.21568629, a: 1}
+    m_SelectedColor: {r: 0.98823535, g: 0.68235296, b: 0.2509804, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -20331,9 +20332,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.98823535, g: 0.68235296, b: 0.2509804, a: 1}
+    m_PressedColor: {r: 0.95294124, g: 0.5294118, b: 0.21568629, a: 1}
+    m_SelectedColor: {r: 0.98823535, g: 0.68235296, b: 0.2509804, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -23651,6 +23652,7 @@ MonoBehaviour:
   rewardPresentWave2Prefab: {fileID: 2894540240790729762, guid: a61815379124b4ed78437643b5c1345a, type: 3}
   victorySoundClip: {fileID: 8300000, guid: 2d1911a70d40e4fbaa9b7ac969ab665a, type: 3}
   victory: {fileID: 53224260}
+  winButton: {fileID: 1510443217}
 --- !u!4 &1778831541
 Transform:
   m_ObjectHideFlags: 0

@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27c2167b99004322a7869c2ba2794c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunPickupPrefab: {fileID: 3109861777738563293, guid: 617c969422a86964bb3b09e075614279, type: 3}
+  gunPickupPrefab: {fileID: 1252765166715617450, guid: c3e3c613f8a465f48b4859636d4fa93a, type: 3}
   giftSoundClip: {fileID: 8300000, guid: c78339631561949c4a9b0abb68bf8720, type: 3}
 --- !u!114 &5004462264921162303
 MonoBehaviour:
