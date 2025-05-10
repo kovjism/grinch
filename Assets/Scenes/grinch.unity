@@ -2531,8 +2531,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189472858}
   m_LocalRotation: {x: -0, y: -0.00022923946, z: -0, w: -1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1}
-  m_LocalScale: {x: 0.0002, y: 0.0002, z: 0.0002}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 0.002, y: 0.002, z: 0.002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 873800701}
@@ -11407,7 +11407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37, y: -26.5}
+  m_AnchoredPosition: {x: 37, y: 80}
   m_SizeDelta: {x: 979, y: 688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774685274
@@ -12730,7 +12730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -207, y: 115.5}
+  m_AnchoredPosition: {x: -207, y: 200}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &873800702
@@ -20622,7 +20622,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399165337}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
@@ -24903,6 +24903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contrastDropdown: {fileID: 748528452}
   mainCamera: {fileID: 287612238}
+  menuRoot: {fileID: 471168410}
 --- !u!1 &1741936422
 GameObject:
   m_ObjectHideFlags: 0

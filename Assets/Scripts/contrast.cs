@@ -6,6 +6,7 @@ public class UIContrastManager : MonoBehaviour
 {
     public TMP_Dropdown contrastDropdown;
     public Camera mainCamera;
+    public GameObject menuRoot;
 
     [Header("Color Themes")]
     private Color defaultBG = new Color32(0, 100, 0, 255); // Dark green
@@ -54,9 +55,18 @@ public class UIContrastManager : MonoBehaviour
             mainCamera.backgroundColor = bgColor;
 
         // Change all UI elements: Buttons, Sliders, Dropdowns
-        var buttons = FindObjectsByType<Button>(FindObjectsSortMode.None);
-        var sliders = FindObjectsByType<Slider>(FindObjectsSortMode.None);
-        var dropdowns = FindObjectsByType<TMP_Dropdown>(FindObjectsSortMode.None);
+        var buttons = menuRoot.GetComponentsInChildren<Button>(true);
+        var sliders = menuRoot.GetComponentsInChildren<Slider>(true);
+        var dropdowns = menuRoot.GetComponentsInChildren<TMP_Dropdown>(true);
+        var texts = menuRoot.GetComponentsInChildren<TMP_Text>(true);
+        var outlines = menuRoot.GetComponentsInChildren<Outline>(true);
+
+
+        //var buttons = FindObjectsByType<Button>(FindObjectsSortMode.None);
+        //var sliders = FindObjectsByType<Slider>(FindObjectsSortMode.None);
+        //var dropdowns = FindObjectsByType<TMP_Dropdown>(FindObjectsSortMode.None);
+        //var texts = FindObjectsByType<TMP_Text>(FindObjectsSortMode.None);
+        //var outlines = FindObjectsByType<Outline>(FindObjectsSortMode.None);
 
         foreach (var btn in buttons)
             SetSelectableColors(btn, uiColor);
@@ -68,11 +78,11 @@ public class UIContrastManager : MonoBehaviour
             SetSelectableColors(dd, uiColor);
 
         // Update text color for all TMP_Texts
-        var texts = FindObjectsByType<TMP_Text>(FindObjectsSortMode.None);
+        
         foreach (var txt in texts)
             txt.color = textColor;
 
-        var outlines = FindObjectsByType<Outline>(FindObjectsSortMode.None);
+        
         foreach (var outline in outlines)
         {
             outline.OutlineColor = uiColor;

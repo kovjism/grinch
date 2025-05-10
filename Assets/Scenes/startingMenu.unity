@@ -10099,15 +10099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contrastDropdown: {fileID: 1328256355}
   mainCamera: {fileID: 602679973}
-  defaultBG: {r: 0, g: 0.39215687, b: 0, a: 1}
-  highContrastBG: {r: 0, g: 0, b: 0, a: 1}
-  colorblindBG: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  defaultText: {r: 0, g: 0, b: 0, a: 1}
-  highContrastText: {r: 1, g: 1, b: 1, a: 1}
-  colorblindText: {r: 1, g: 1, b: 1, a: 1}
-  defaultUIBase: {r: 1, g: 1, b: 1, a: 1}
-  highContrastUIBase: {r: 1, g: 0.84313726, b: 0, a: 1}
-  colorblindUIBase: {r: 0.11764706, g: 0.5647059, b: 1, a: 1}
+  menuRoot: {fileID: 1478300748}
 --- !u!1 &1766035415
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class Player_Status : MonoBehaviour
         Vector3 euler = ConvertGyroRotationToUnity(deviceRotation);
         float pitch = euler.x;
 
-        // Normalize to 0–180, where 0 is forward and ~90 is looking up
+        // Normalize to 0?80, where 0 is forward and ~90 is looking up
         if (pitch > 180f) pitch -= 360f;
         bool isLookingUp = pitch < -80f;
 
